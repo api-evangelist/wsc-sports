@@ -1,0 +1,40 @@
+generated: '2026-09-04'
+method: generated
+source: openapi/wsc-sports-blaze-feed-api-reference.json + https://dev.wsc-sports.com/docs/blazefeed-api-v1
+provider_published_skills:
+  found: false
+  note: >-
+    Searched the WSC Sports GitHub org and the documentation site for a provider-published AGENTS.md or
+    skills/ directory; none exists. WSC Sports does publish an agent-facing surface — an llms.txt index,
+    per-page .md variants and a remote MCP server — but no packaged Agent Skills. The two skills below are
+    API Evangelist generated and grounded in real published operations.
+skills:
+- name: wsc-sports-sync-content-catalog
+  file: wsc-sports-sync-content-catalog.md
+  description: >-
+    Seed a local store with the full Stories, Moments and Videos catalog, then keep it current from
+    content-change webhooks. Covers the two-part pull-then-webhook pattern the provider requires, dual
+    identifier persistence, and reconciliation.
+  api: WSC Sports Blaze Feed API
+  operations:
+  - getStories
+  - getStoriesByIds
+  - get /v1/moments
+  - get /v1/moments/ids
+  - get /v1/videos
+  - get /v1/videos/ids
+- name: wsc-sports-trending-content
+  file: wsc-sports-trending-content.md
+  description: >-
+    Retrieve and correctly render trending Stories or Moments, including the four ways this endpoint
+    diverges from the catalog endpoints and why the response order must be preserved.
+  api: WSC Sports Blaze Feed API
+  operations:
+  - getTrendingRecommendations
+grounding:
+  operation_ids_verified_against: openapi/wsc-sports-blaze-feed-api-reference.json
+  note: >-
+    getStories, getStoriesByIds and getTrendingRecommendations are the three operationIds WSC Sports
+    actually publishes. The moments and videos operations are referenced by path and method because the
+    published specification assigns them no operationId; the overlay in overlays/ proposes names for them
+    and marks them as API Evangelist authored.

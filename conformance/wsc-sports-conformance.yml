@@ -1,0 +1,125 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/wsc-sports-blaze-feed-api.json + https://dev.wsc-sports.com/docs/blazefeed-api-v1
+api: WSC Sports Blaze Feed API
+conformance:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Both openapi/wsc-sports-blaze-feed-api.json and openapi/wsc-sports-blaze-feed-api-reference.json
+    declare openapi 3.0.1 and parse with all $refs resolving.
+- id: rest
+  conforms: true
+  evidence: Resource-oriented paths under /v1 with GET semantics and JSON representations.
+- id: json
+  conforms: true
+  evidence: application/json responses on all seven operations.
+- id: pagination
+  conforms: true
+  evidence: >-
+    PageNum/PageSize query parameters and a totalItems/result envelope on all six catalog operations.
+    Documented at https://dev.wsc-sports.com/docs/blazefeed-api-v1
+- id: api-key-auth
+  conforms: true
+  evidence: >-
+    ApiKey query parameter, required on every operation. Documented at
+    https://dev.wsc-sports.com/docs/blazefeed-api-v1
+- id: rate-limit-headers
+  conforms: partial
+  evidence: >-
+    X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset with a 429 on exhaustion, documented at
+    https://dev.wsc-sports.com/docs/blazefeed-api-v1. Partial because these are the legacy X-RateLimit-*
+    headers rather than the RFC 9331 RateLimit-* form, and no Retry-After is sent.
+- id: webhooks
+  conforms: true
+  evidence: >-
+    Documented outbound content-change webhooks (V1 and V2) at
+    https://dev.wsc-sports.com/docs/blazefeed-webhooks. Captured in asyncapi/wsc-sports-content-webhooks.yml
+- id: mcp
+  conforms: true
+  evidence: >-
+    Live remote MCP server at https://dev.wsc-sports.com/mcp, protocol version 2025-06-18, verified
+    anonymously on 2026-09-04 via initialize and tools/list. Six tools captured in mcp/wsc-sports-mcp-tools.json
+- id: llms-txt
+  conforms: true
+  evidence: >-
+    /llms.txt served on both the documentation host (https://dev.wsc-sports.com/llms.txt, saved verbatim
+    to llms/wsc-sports-llms.txt) and the marketing host (https://wsc-sports.com/llms.txt), plus section
+    and per-page .md variants across the docs site.
+- id: iso-3166
+  conforms: true
+  evidence: >-
+    The Geo parameter on /v1/recommendations/trending is documented as an ISO 3166 two-letter country
+    code. GeoTargeting includedGeos/excludedGeos use the same codes.
+- id: semver
+  conforms: true
+  evidence: All five Experiences SDKs version on semver; see changelog/wsc-sports-changelog.yml
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    No application/problem+json media type appears in either spec, and no error body is documented at all.
+    See errors/wsc-sports-problem-types.yml
+- id: rfc8594
+  conforms: false
+  evidence: No Sunset or Deprecation response header is documented. See lifecycle/wsc-sports-lifecycle.yml
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No OAuth2 flow anywhere. The API uses a query-parameter API key, and the webhook documentation states
+    OAuth2 is "currently not supported" for consumer endpoints.
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any host; see well-known/wsc-sports-well-known.yml
+- id: idempotency
+  conforms: na
+  evidence: >-
+    Read-only API — all seven operations are GET, so there is no mutating request for an idempotency key
+    to protect. See conventions/wsc-sports-conventions.yml
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    A documented webhook event surface exists but no AsyncAPI document is published. Probed
+    /asyncapi.json, /asyncapi.yaml and the GitHub org.
+- id: well-known-discovery
+  conforms: false
+  evidence: >-
+    60 probes across 5 hosts returned no /.well-known document. See well-known/wsc-sports-well-known.yml
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on all 5 hosts; 404, 301, or catch-all
+    soft-200 with a 14-byte plain-text body. No agent card is served.
+domain_standards:
+  market: sports media / video content distribution
+  applicable_standard_found: false
+  note: >-
+    REWARD-ONLY, and no award is claimed. The contract was checked for a declared domain standard for the
+    sports-media market and declares none. The sport entity model (competition, game, team, player, round,
+    season) is WSC Sports' own vocabulary keyed on its own integer wscId, not an industry identifier
+    scheme. Notably the model does provide a provider/providerId escape hatch on every entity so a
+    customer can carry their own or a data vendor's ids (Opta, Stats Perform, Sportradar), but the API
+    neither names nor validates any such scheme. No SCIM URN, OData $metadata, OpenRTB endpoint,
+    ActivityPub actor, EDI message type or comparable domain-standard signature appears in either spec.
+  probed_for:
+  - SCIM schema URNs
+  - OData $metadata
+  - OpenRTB
+  - ActivityPub
+  - Sparkplug
+  - OAI-PMH
+  - HL7v2 / X12 / EDIFACT / ISO 20022
+compliance_certifications:
+  published: false
+  note: >-
+    No SOC 2, ISO 27001, PCI, HIPAA or FedRAMP claim is published on the public site or developer docs,
+    and no trust center was found. probe-security-programs.py returned vdp=none trust=none. No Compliance
+    or TrustCenter pointer is emitted.
+  probed:
+  - url: https://wsc-sports.com/privacy-policy/
+    status: 200
+    note: Privacy policy present; names no certification.
+  - url: https://dev.wsc-sports.com/docs/privacy-considerations
+    status: 200
+    note: >-
+      Viewer privacy and privacy-compliance guidance for SDK integrators. Addresses viewer-ID handling
+      rather than asserting a certification WSC Sports holds.

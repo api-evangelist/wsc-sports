@@ -1,0 +1,32 @@
+generated: '2026-09-04'
+method: searched
+source: https://wsc-sports.com/
+plan_count: 0
+plans: []
+pricing_published: false
+model: enterprise-sales
+note: >-
+  WSC Sports publishes no pricing of any kind. There is no pricing page, no plan tiers, no quota or
+  overage table, and no self-serve signup. The only commercial path on the site is a "Request a Demo"
+  form, and API credentials are described throughout the developer documentation as something a WSC
+  Sports account manager issues. This is a fully sales-gated enterprise product, priced per contract.
+evidence:
+- url: https://wsc-sports.com/pricing/
+  status: 404
+- url: https://wsc-sports.com/request-a-demo/
+  status: 200
+  note: The demo-request form is the entry point in place of signup or pricing.
+- url: https://wsc-sports.com/llms.txt
+  status: 200
+  note: The site's own page index lists no pricing page.
+- url: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+  status: 200
+  note: 'States: "If you don''t have a token, ask your WSC Sports account manager."'
+signup:
+  self_serve: false
+  url: https://wsc-sports.com/request-a-demo/
+  type: demo request
+free_tier: false
+trial:
+  published: false
+  note: A beta program exists (wsc-sports.com/beta-program-terms-and-conditions/) but no terms describe a free or trial commercial tier.

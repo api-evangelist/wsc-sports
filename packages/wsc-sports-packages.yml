@@ -1,0 +1,155 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  registry.npmjs.org, github.com/WSCSports (blaze-specs-ios, blaze-flutter-packages, blaze-android-release),
+  and https://dev.wsc-sports.com/docs/sample-apps
+packages:
+- language: javascript
+  registry: npm
+  name: '@wscsports/blaze-web-sdk'
+  url: https://www.npmjs.com/package/@wscsports/blaze-web-sdk
+  install: npm install @wscsports/blaze-web-sdk
+  official: true
+  version: 0.36.3
+  published: '2026-08-06'
+  release_count: 222
+  description: WSC Sports Web SDK — Experiences widgets, player and Moments container for the web.
+  homepage: https://dev.wsc-sports.com/docs/sdk-integration
+- language: javascript
+  registry: npm
+  name: '@wscsports/blaze-rtn-sdk'
+  url: https://www.npmjs.com/package/@wscsports/blaze-rtn-sdk
+  install: npm install @wscsports/blaze-rtn-sdk
+  official: true
+  version: 1.20.0
+  published: '2026-07-30'
+  description: WSC Sports Blaze SDK component for React Native.
+  homepage: https://github.com/WSCSports/blaze-sample-reactNative
+- language: javascript
+  registry: npm
+  name: '@wscsports/blaze-rtn-gam-ads'
+  url: https://www.npmjs.com/package/@wscsports/blaze-rtn-gam-ads
+  install: npm install @wscsports/blaze-rtn-gam-ads
+  official: true
+  version: 1.20.0
+  published: '2026-07-30'
+  description: Google Ad Manager ads component for the React Native Blaze SDK.
+- language: javascript
+  registry: npm
+  name: '@wscsports/blaze-rtn-ima-ads'
+  url: https://www.npmjs.com/package/@wscsports/blaze-rtn-ima-ads
+  install: npm install @wscsports/blaze-rtn-ima-ads
+  official: true
+  version: 1.20.0
+  published: '2026-07-30'
+  description: Google Interactive Media Ads component for the React Native Blaze SDK.
+- language: javascript
+  registry: npm
+  name: '@wscsports/blaze-web-sdk-mcp'
+  url: https://www.npmjs.com/package/@wscsports/blaze-web-sdk-mcp
+  install: npx -y @wscsports/blaze-web-sdk-mcp
+  official: true
+  version: 0.36.1
+  published: '2026-08-18'
+  kind: mcp-server
+  description: MCP server for AI-powered Blaze Web SDK integration assistance. See mcp/wsc-sports-mcp.yml.
+- language: javascript
+  registry: npm
+  name: '@wscsports/blaze-mobile-sdk-mcp'
+  url: https://www.npmjs.com/package/@wscsports/blaze-mobile-sdk-mcp
+  install: npx -y @wscsports/blaze-mobile-sdk-mcp
+  official: true
+  version: 0.1.1
+  published: '2026-07-23'
+  kind: mcp-server
+  description: MCP server for AI-powered Blaze Mobile SDK (iOS and Android) integration assistance.
+- language: swift
+  registry: swift-package-manager
+  name: BlazeSDK
+  url: https://github.com/WSCSports/blaze-specs-ios
+  install: '.package(url: "https://github.com/WSCSports/blaze-specs-ios.git", from: "1.20.3")'
+  official: true
+  version: 1.20.3
+  published: '2026-08-31'
+  description: >-
+    iOS Experiences SDK, distributed as a binaryTarget XCFramework from the blaze-specs-ios GitHub
+    releases. Package.swift also vends the BlazeIMA and BlazeGAM ad libraries.
+  note: >-
+    Not on a central registry — Swift Package Manager resolves from the Git repository, so the version is
+    read from the release tag and the binaryTarget URL in Package.swift rather than a registry metadata
+    endpoint.
+- language: swift
+  registry: cocoapods
+  name: BlazeSDK
+  url: https://github.com/WSCSports/blaze-specs-ios
+  install: pod 'BlazeSDK'
+  official: true
+  version: 1.20.3
+  published: '2026-08-31'
+  description: >-
+    The same iOS SDK distributed as a private CocoaPods spec repo. blaze-specs-ios carries podspec
+    directories for BlazeSDK, BlazeIMA and BlazeGAM across 76 published versions.
+  note: Private spec repo, not trunk — there is no cocoapods.org metadata endpoint to query.
+- language: kotlin
+  registry: github-packages
+  name: Blaze Android SDK
+  url: https://github.com/WSCSports/blaze-android-release/packages/1909736
+  install: 'implementation("com.wsc.blaze:blazesdk:1.20.4")'
+  official: true
+  version: 1.20.4
+  published: '2026-07-23'
+  description: Android Experiences SDK, published to GitHub Packages (Maven) from the blaze-android-release repo.
+  note: >-
+    version and published are read from the provider's own changelog entry for the Android SDK
+    (https://dev.wsc-sports.com/changelog), because GitHub Packages Maven metadata requires an
+    authenticated token and does not answer anonymously. Not present on Maven Central.
+- language: dart
+  registry: git
+  name: blaze_flutter_sdk
+  url: https://github.com/WSCSports/blaze-flutter-packages
+  install: |
+    blaze_flutter_sdk:
+      git:
+        url: https://github.com/WSCSports/blaze-flutter-packages.git
+        ref: 1.20.0
+        path: blaze_flutter_sdk
+  official: true
+  version: 1.20.0
+  published: '2026-08-16'
+  description: Flutter Experiences SDK. Sibling packages blaze_flutter_ima_ads and blaze_flutter_gam_ads ship from the same repo.
+  note: >-
+    Deliberately not on pub.dev — pubspec.yaml sets publish_to "none" and the sample app pins a Git tag.
+    Probed pub.dev for blaze_sdk, wsc_blaze and blaze_flutter; all absent. Version read from the pinned
+    pubspec version field and the repo tag.
+summary:
+  total: 10
+  official: 10
+  registries:
+    npm: 6
+    swift-package-manager: 1
+    cocoapods: 1
+    github-packages: 1
+    git: 1
+  languages:
+  - javascript
+  - swift
+  - kotlin
+  - dart
+  currency_note: >-
+    Every first-party package was published within the last two months of the profiling date
+    (2026-07-23 to 2026-08-31), and the SDK release cadence matches the published changelog. No
+    abandonment signal.
+  distribution_note: >-
+    Only the JavaScript/TypeScript packages reach a public registry. iOS, Android and Flutter are all
+    distributed from WSC Sports' own GitHub org (SPM binary target, private CocoaPods spec repo, GitHub
+    Packages Maven, and Git-pinned Dart packages), so a developer cannot discover them by searching a
+    package registry.
+registries_probed_without_result:
+- pypi
+- maven-central
+- nuget
+- rubygems
+- packagist
+- crates.io
+- pkg.go.dev
+- pub.dev

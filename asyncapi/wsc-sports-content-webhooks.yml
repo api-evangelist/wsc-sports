@@ -1,0 +1,126 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/blazefeed-webhooks
+docs: https://dev.wsc-sports.com/docs/blazefeed-webhooks
+api: WSC Sports Experiences content webhooks
+asyncapi_spec:
+  published: false
+  note: >-
+    WSC Sports publishes no AsyncAPI document. Probed /asyncapi.json, /asyncapi.yaml and the GitHub org;
+    nothing found. The event surface below is captured from the published webhook documentation and no
+    AsyncAPI is authored on the provider's behalf.
+surface:
+  style: outbound webhooks
+  direction: provider-to-customer
+  transport: HTTPS POST
+  content_type: application/json
+  purpose: >-
+    Notify an integrator when catalog content changes, so they do not have to poll the Blaze Feed API
+    content-catalog endpoints for it.
+versions:
+- version: v2
+  status: current
+  docs: https://dev.wsc-sports.com/docs/v2
+  note: Unified envelope across all content types, carrying an explicit Action and ContentType.
+- version: v1
+  status: legacy
+  docs: https://dev.wsc-sports.com/docs/webhooks
+  note: >-
+    Story-oriented. A story published to a Feeds publish point configured with a webhook is pushed to the
+    endpoint one story at a time, one story object per notification, using the same JSON object the
+    stories service returns.
+registration:
+  self_serve: false
+  process: >-
+    The integrator provides a publicly reachable HTTPS endpoint and its credentials to their WSC Sports
+    account manager, who configures the webhook. There is no API or console for self-registering a
+    webhook endpoint.
+  requirements:
+  - The endpoint URL must be publicly exposed and reachable by WSC Sports servers.
+  - The endpoint must use https://.
+  - The endpoint must accept simple JSON payload messages.
+  source: https://dev.wsc-sports.com/docs/blazefeed-webhooks
+consumer_authentication:
+  note: >-
+    Authentication is what the CONSUMER's endpoint requires of WSC Sports, chosen by the integrator from a
+    fixed list. This is static credential auth, not a signed payload.
+  supported:
+  - scheme: Basic
+    detail: Username and password sent in the Authorization header.
+  - scheme: ApiKey
+    detail: API key value sent in the x-api-key header.
+  - scheme: Bearer
+    detail: Token value sent in the Authorization header.
+  not_supported:
+  - scheme: OAuth2
+    detail: Documented as currently not supported.
+  signature_verification: false
+  signature_note: >-
+    No payload signing, HMAC signature header or timestamp/replay protection is documented. A consumer can
+    authenticate that a caller knows a shared secret, but cannot verify that a given payload was produced
+    by WSC Sports and not replayed.
+events:
+- name: created
+  trigger: Content is created on the platform.
+  envelope_field: Action
+- name: updated
+  trigger: Content is updated on the platform.
+  envelope_field: Action
+- name: deleted
+  trigger: Content is deleted from the platform.
+  envelope_field: Action
+event_note: >-
+  The documentation states that an event is any change to platform content and that events occur when
+  content is created, updated or deleted. The exact literal values of the Action field are not published
+  in the overview, so the three names above are the documented event semantics rather than verbatim
+  enum values.
+content_types:
+- name: Story
+  docs: https://dev.wsc-sports.com/docs/stories
+- name: Moment
+  docs: https://dev.wsc-sports.com/docs/moments
+- name: Video
+  docs: https://dev.wsc-sports.com/docs/moment-videos-webhook
+envelope:
+  note: The outer payload is identical across content types; the inner content object varies by type.
+  fields:
+  - name: Action
+    type: string
+    description: The change that occurred (create, update or delete).
+  - name: ActionTime
+    type: string
+    description: When the change occurred.
+  - name: ContentId
+    type: string
+    description: Identifier of the affected content item.
+  - name: ContentType
+    type: string
+    description: Story, Moment or Video.
+  - name: Content
+    type: object
+    description: >-
+      The content object itself — Id, Type, Title, Description, Version, AspectRatios, Status, IsLive,
+      CreateTime, UpdateTime, ExecutionTimeType, htmlUrl — plus Thumbnails[], GeoTargeting, Metadata
+      (competition, game, team, player, round, season), Pages[], Labels[] and ExtraInfo. This mirrors the
+      DTOs in openapi/wsc-sports-blaze-feed-api-reference.json.
+delivery_semantics:
+  batching: false
+  batching_note: V1 explicitly pushes published stories one at a time, one object per notification.
+  retry_policy:
+    documented: false
+    note: No retry, backoff or dead-letter behaviour is documented.
+  ordering:
+    documented: false
+  replay:
+    documented: false
+backfill:
+  required: true
+  note: >-
+    Webhooks only carry content published or changed AFTER the webhook is configured. The documentation
+    states that existing catalog content must be imported separately through the Blaze Feed API
+    content-catalog endpoints, so a correct integration is webhooks plus an initial pull.
+  source: https://dev.wsc-sports.com/docs/blazefeed-webhooks
+gaps_to_raise_with_provider:
+- No AsyncAPI document for the event surface.
+- No payload signing or replay protection on delivered webhooks.
+- Action enum values, retry policy and delivery ordering are undocumented.

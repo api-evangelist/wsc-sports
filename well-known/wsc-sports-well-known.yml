@@ -1,0 +1,276 @@
+generated: '2026-09-04'
+method: probed
+source: live HTTPS probes of every host in apis.yml and every OpenAPI servers[] host
+result: none
+summary: 'No /.well-known document is served on any WSC Sports host. 60 probes across 5 hosts returned 0 real documents:
+  24 hard 404s, 24 redirects, and 12 catch-all soft-200s on the API host that return a 14-byte plain-text banner
+  for any path, confirmed with a negative control. No WellKnown, SecurityTxt or AgentCard pointer is emitted, because
+  each would assert a surface the provider does not serve.'
+hosts:
+- host: https://wsc-sports.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /apis.json
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+  - path: /apis.yml
+    status: 404
+    file: null
+    note: WordPress 404 page returned for every path.
+- host: https://www.wsc-sports.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/openid-configuration
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/api-catalog
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/aauth-resource.json
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/agent-card.json
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/agent.json
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /.well-known/apis.json
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /apis.json
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+  - path: /apis.yml
+    status: 301
+    file: null
+    note: 301 redirect to the apex host wsc-sports.com, which 404s every path.
+- host: https://dev.wsc-sports.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /apis.json
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+  - path: /apis.yml
+    status: 404
+    file: null
+    note: ReadMe-hosted docs 404 page returned for every path.
+- host: https://blazefeed.clipro.tv
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/agent.json
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /.well-known/apis.json
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /apis.json
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  - path: /apis.yml
+    status: 200
+    file: null
+    note: 'NOT A DOCUMENT. Catch-all soft-200: the host answers every path with the same 14-byte text/plain body
+      ''Blaze Feed API''. Scored as a miss.'
+  control_probe:
+    url: https://blazefeed.clipro.tv/this-path-does-not-exist-12345
+    status: 200
+    body: Blaze Feed API
+    note: Negative control confirming the 200s are a catch-all, not served documents.
+- host: https://clipro.tv
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/openid-configuration
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/api-catalog
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/aauth-resource.json
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/agent-card.json
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/agent.json
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /.well-known/apis.json
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /apis.json
+    status: 301
+    file: null
+    note: 301 redirect; no document served.
+  - path: /apis.yml
+    status: 301
+    file: null
+    note: 301 redirect; no document served.

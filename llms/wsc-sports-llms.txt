@@ -1,0 +1,53 @@
+# WSC Sports Experiences
+
+> Experiences is a mobile-first SDK from WSC Sports. It embeds Stories, Moments, and Videos in iOS, Android, Web, React Native, and Flutter apps. Content is created and scheduled in Arena (the CMS). This index is the map for coding agents.
+
+How to use this site:
+
+- Append `.md` to any docs URL to get markdown. Example: `https://dev.wsc-sports.com/docs/ios-sdk-integration.md`.
+- Fetch a section `llms.txt` next, not every page.
+- Start in Concepts for the product model. Those pages explain the idea, then link to the matching SDK reference pages for iOS, Android, Web, React Native, and Flutter. After that, open the SDK section for the framework you are implementing.
+- In code and APIs the product still uses Blaze names (`BlazeSDK`, `BlazeDataSourceType`). In docs, call the product **Experiences SDK**.
+- **Viewer** means the person watching content. **User** means someone in the WSC Sports console.
+- For live API search inside an editor, connect the Experiences MCP servers: https://dev.wsc-sports.com/docs/experiences-mcp.md
+
+## Start here
+
+- [Welcome to Experiences](https://dev.wsc-sports.com/docs/getting-started.md): product overview, system flow, and which platform getting-started guide to open
+- [Concepts overview](https://dev.wsc-sports.com/docs/concepts-overview.md): high-level product model (content types, widgets, data sources, recommendations). Concept pages link to the matching SDK reference pages for each framework
+- [Getting started iOS](https://dev.wsc-sports.com/docs/ios-sdk-integration.md): install and first widget on iOS. Then use the iOS SDK reference
+- [Getting started Android](https://dev.wsc-sports.com/docs/android-sdk-integration.md): install and first widget on Android. Then use the Android SDK reference
+- [Getting started Web](https://dev.wsc-sports.com/docs/web-sdk-integration.md): install the Web SDK. Then use the Web SDK reference
+- [Initialize React Native](https://dev.wsc-sports.com/docs/rtn-sdk-init.md): React Native setup. Then use the React Native SDK reference
+- [Getting started Flutter](https://dev.wsc-sports.com/docs/flutter-sdk-initialize.md): Flutter setup. Then use the Flutter SDK reference
+- [Sample apps](https://dev.wsc-sports.com/docs/sample-apps.md): working apps per platform
+- [Experiences MCP servers](https://dev.wsc-sports.com/docs/experiences-mcp.md): connect docs and sample apps to Cursor, Claude, or Windsurf
+
+## Section indexes
+
+- [Guides](https://dev.wsc-sports.com/docs/llms.txt): full Guides index (every published page)
+- [Welcome](https://dev.wsc-sports.com/docs/welcome/llms.txt): intro pages
+- [Concepts](https://dev.wsc-sports.com/docs/concepts/llms.txt): high-level concepts for the product. Each page explains the model, then links to the SDK reference pages for iOS, Android, Web, React Native, and Flutter. Not API reference
+- [Requirements and policies](https://dev.wsc-sports.com/docs/requirements-and-policies/llms.txt): versions, size, privacy, Viewer ID
+- [CMS](https://dev.wsc-sports.com/docs/cms-content-management/llms.txt): Arena Experiences CMS
+- [Ads](https://dev.wsc-sports.com/docs/ads/llms.txt): GAM and GMA setup, specs, and player placement. Framework-level ads APIs are in each SDK reference
+- [SDK iOS](https://dev.wsc-sports.com/docs/sdk-ios/llms.txt): SDK reference for the iOS framework: install, widgets, methods, and types
+- [SDK Android](https://dev.wsc-sports.com/docs/sdk-android/llms.txt): SDK reference for the Android framework: install, widgets, methods, and types
+- [SDK Web](https://dev.wsc-sports.com/docs/sdk-web/llms.txt): SDK reference for the Web framework: install, widgets, methods, and types
+- [SDK React Native](https://dev.wsc-sports.com/docs/sdk-react-native/llms.txt): SDK reference for the React Native framework: install, widgets, methods, and types
+- [SDK Flutter](https://dev.wsc-sports.com/docs/sdk-flutter/llms.txt): SDK reference for the Flutter framework: install, widgets, methods, and types
+- [Events](https://dev.wsc-sports.com/docs/events/llms.txt): analytics event reference
+- [Blazefeed API](https://dev.wsc-sports.com/docs/blazefeed-api/llms.txt): pull API and webhooks
+- [MCP Server](https://dev.wsc-sports.com/docs/mcp-server/llms.txt): AI editor setup
+
+## API Reference
+
+- [API Reference](https://dev.wsc-sports.com/reference/llms.txt): OpenAPI reference for the Blazefeed pull API, not the mobile or Web SDKs
+
+## Changelog
+
+- [Changelog](https://dev.wsc-sports.com/changelog/llms.txt): current SDK and product release notes. Older notes are in Resources
+
+## Optional
+
+- [Resources](https://dev.wsc-sports.com/docs/resources/llms.txt): FAQ, sample apps, historical release notes

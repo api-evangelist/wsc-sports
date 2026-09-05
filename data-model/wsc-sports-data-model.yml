@@ -1,0 +1,183 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/wsc-sports-blaze-feed-api.json
+enriched_from: https://dev.wsc-sports.com/docs/concepts-overview
+api: WSC Sports Blaze Feed API
+summary: >-
+  The model has three sibling content entities — Story, Moment, Video — that share a common shape
+  (IContentDTO) and differ mainly in whether they carry pages, renditions or a live flag. Every content
+  item hangs off a ContentMetadata block that maps it to the sport domain (competition, game, team,
+  player, round, season), and every one of those sport entities is addressable by two parallel id
+  systems: WSC Sports' own integer wscId and the customer's own providerId. That dual-identifier design
+  is the defining feature of the model.
+entities:
+- name: StoryDTO
+  kind: content
+  identifier: id
+  description: A multi-page vertical Story. The only content type carrying isLive and a titleImageUrl.
+  key_fields: [id, type, title, description, version, aspectRatios, status, isLive, createTime, updateTime, titleImageUrl]
+  relationships:
+  - has_many: ThumbnailDTO
+    via: thumbnails
+  - has_many: PageDTO
+    via: pages
+  - has_many: LabelDTO
+    via: labels
+  - has_one: GeoTargeting
+    via: geoTargeting
+  - has_one: ContentMetadata
+    via: metadata
+- name: MomentDTO
+  kind: content
+  identifier: id
+  description: A single short-form clip. Carries duration and video renditions rather than pages.
+  key_fields: [id, type, htmlUrl, title, subtitle, description, version, aspectRatios, status, duration, createTime, updateTime]
+  relationships:
+  - has_many: ThumbnailDTO
+    via: thumbnails
+  - has_many: VideoRenditionDTO
+    via: videoRenditions
+  - has_many: LabelDTO
+    via: labels
+  - has_one: GeoTargeting
+    via: geoTargeting
+  - has_one: ContentMetadata
+    via: metadata
+- name: VideoDTO
+  kind: content
+  identifier: id
+  description: A long-form video asset. Same shape as MomentDTO; the distinction is editorial, not structural.
+  key_fields: [id, type, title, subtitle, description, version, aspectRatios, status, duration, createTime, updateTime]
+  relationships:
+  - has_many: ThumbnailDTO
+    via: thumbnails
+  - has_many: VideoRenditionDTO
+    via: videoRenditions
+  - has_one: GeoTargeting
+    via: geoTargeting
+  - has_one: ContentMetadata
+    via: metadata
+- name: IContentDTO
+  kind: interface
+  description: The shared base shape of the three content entities. Not returned directly by any operation.
+- name: PageDTO
+  kind: content-part
+  identifier: id
+  description: One page within a Story, ordered by index.
+  belongs_to: StoryDTO
+  relationships:
+  - has_many: ThumbnailDTO
+    via: thumbnails
+  - has_many: VideoRenditionDTO
+    via: videoRenditions
+  - has_one: ContentMetadata
+    via: metadata
+- name: ContentMetadata
+  kind: mapping
+  description: Maps a content item to the sport domain. Every field is a MetadataEntityIds reference.
+  relationships:
+  - has_one: MetadataEntityIds
+    via: competition
+  - has_many: MetadataEntityIds
+    via: competitions
+  - has_one: MetadataEntityIds
+    via: game
+  - has_one: MetadataEntityIds
+    via: team
+  - has_one: MetadataEntityIds
+    via: player
+  - has_one: MetadataEntityIds
+    via: round
+  - has_one: MetadataEntityIds
+    via: season
+- name: MetadataEntityIds
+  kind: identifier
+  description: >-
+    The dual-identity reference used for every sport entity — provider and providerId (the customer's own
+    id system) alongside wscId (WSC Sports' integer id).
+  key_fields: [provider, providerId, wscId]
+- name: GameInfoDto
+  kind: sport-domain
+  description: Game context — date, status, stadium and participants.
+  relationships:
+  - has_many: GameParticipantDto
+    via: participants
+- name: GameParticipantDto
+  kind: sport-domain
+  description: A team or player taking part in a game, with name, ids, type and score.
+- name: ThumbnailDTO
+  kind: asset
+  key_fields: [url, aspectRatio]
+- name: VideoRenditionDTO
+  kind: asset
+  description: One encoded rendition of a video asset.
+  key_fields: [url, fileType, aspectRatio, bitRate]
+  relationships:
+  - has_one: Resolution
+    via: resolution
+- name: Resolution
+  kind: value-object
+  key_fields: [level, height, width]
+- name: LabelDTO
+  kind: taxonomy
+  key_fields: [title, identifier]
+  description: >-
+    The label vocabulary is the primary content-selection mechanism. Labels are mapped to viewer
+    preferences in Arena, and LabelsFilterExpression filters the catalog by them.
+- name: GeoTargeting
+  kind: policy
+  key_fields: [includedGeos, excludedGeos]
+  description: Allow/deny country lists controlling where a content item may be shown.
+- name: CreationSettings
+  kind: provenance
+  key_fields: [creationTimePeriod, ruleName, storyType, contentType]
+  description: Records which automation rule produced the content item.
+- name: RecommendationsResponseDTO
+  kind: envelope
+  key_fields: [lastUpdated, recommendations]
+  description: >-
+    Trending response envelope. Rank is carried by array order only — no score field is exposed and no
+    field marks an item as trending.
+- name: '*PaginationSearchResponse'
+  kind: envelope
+  variants: [StoryDTOPaginationSearchResponse, MomentDTOPaginationSearchResponse, VideoDTOPaginationSearchResponse]
+  key_fields: [totalItems, result]
+enumerations:
+- name: ContentType
+  values: [Story, Moment, Video, Stream]
+  note: >-
+    The upstream swagger includes Stream, but no /v1/streams endpoint is published and the
+    documentation-published reference spec omits it. Likely an internal type not exposed on v1.
+- name: ContentStatus
+  values: [Draft, Active]
+- name: EntityIdType
+  values: [WscId, ServiceProviderId]
+- name: ExecutionTimeType
+  values: [None, PreGame, InGame, PostGame]
+- name: AssetVideoAspectRatio
+  value_count: 18
+  note: Square, Horizontal, Vertical, Unknown plus 14 explicit ratios.
+- name: VideoFileType
+  values: [Mp4, HLS, DASH]
+- name: ResolutionLevel
+  values: [LowRes, MidRes, HighRes]
+- name: Language
+  value_count: 130
+  note: Locale codes from und through zu.
+id_conventions:
+  content_id:
+    type: string
+    shape: 24-character lowercase hex (MongoDB ObjectId shape)
+    example_source: the published trending response example in the API reference
+    prefixed: false
+  sport_entity_id:
+    types: [integer wscId, string providerId]
+    note: Selected per request with the Entities.IdType parameter.
+observations:
+- >-
+  The three content entities are structurally near-identical, and the API dedicates two endpoints to each
+  rather than one polymorphic content endpoint with a type filter. A client integrating all three writes
+  the same code three times.
+- >-
+  There is no explicit relationship between content items and GameInfoDto in the returned payloads;
+  the link is indirect, through ContentMetadata.game.wscId.

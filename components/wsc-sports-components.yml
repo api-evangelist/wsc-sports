@@ -1,0 +1,82 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/concepts-overview
+docs: https://dev.wsc-sports.com/docs/getting-started
+product: WSC Sports Experiences SDK
+summary: >-
+  Experiences is a client-side embeddable UI product, not just a data API. The SDKs ship rendered video
+  surfaces — widgets, entry points and a Moments container — that an integrator drops into a native app or
+  web page, with the look and feel configurable to match the host environment. These are UI components,
+  distinct from the client libraries catalogued in packages/wsc-sports-packages.yml, which are their
+  delivery vehicle.
+families:
+- name: Widgets
+  kind: embeddable UI surface
+  description: >-
+    Configurable content surfaces that render Stories, Moments and Videos inside the host app or site.
+    Widget layout and styling are configured to match the native environment.
+  docs: https://dev.wsc-sports.com/docs/concepts-overview
+- name: Entry points
+  kind: embeddable UI surface
+  description: Placements that open an Experiences surface from within the host application UI.
+  docs: https://dev.wsc-sports.com/docs/concepts-overview
+- name: Moments container
+  kind: embeddable UI surface
+  description: The container surface for vertical short-form Moments playback.
+  docs: https://dev.wsc-sports.com/docs/concepts-overview
+- name: Video player
+  kind: embeddable UI surface
+  description: The player UI the SDK uses to present content fetched from Arena.
+  docs: https://dev.wsc-sports.com/docs/player-sources
+- name: Ad placements
+  kind: monetization surface
+  description: >-
+    Google Ad Manager (GAM) and Google Interactive Media Ads (IMA) integrations for in-player and
+    in-widget ad placement, shipped as separate libraries per platform.
+  docs: https://dev.wsc-sports.com/docs/ads
+  libraries:
+  - '@wscsports/blaze-rtn-gam-ads'
+  - '@wscsports/blaze-rtn-ima-ads'
+  - BlazeGAM (iOS)
+  - BlazeIMA (iOS)
+  - blaze_flutter_gam_ads
+  - blaze_flutter_ima_ads
+loaders:
+- platform: Web
+  library: '@wscsports/blaze-web-sdk'
+  registry: npm
+  version: 0.36.3
+- platform: iOS
+  library: BlazeSDK
+  registry: swift-package-manager / cocoapods
+  version: 1.20.3
+- platform: Android
+  library: Blaze Android SDK
+  registry: github-packages
+  version: 1.20.4
+- platform: React Native
+  library: '@wscsports/blaze-rtn-sdk'
+  registry: npm
+  version: 1.20.0
+- platform: Flutter
+  library: blaze_flutter_sdk
+  registry: git
+  version: 1.20.0
+web_components:
+  custom_elements: false
+  note: >-
+    The Web SDK is distributed as an npm package rather than a script-tag custom-element bundle. No CDN
+    build or custom-element tag name is documented.
+sample_apps:
+  docs: https://dev.wsc-sports.com/docs/sample-apps
+  repos:
+  - https://github.com/WSCSports/blaze-sample-ios-v2
+  - https://github.com/WSCSports/blaze-sample-android-v2
+  - https://github.com/WSCSports/blaze-sample-reactNative
+  - https://github.com/WSCSports/blaze-sample-flutter
+configuration:
+  cms: Arena
+  note: >-
+    What a component renders is decided in the Arena CMS by labels, content IDs or a mix of the two, plus
+    audience segments and scheduling — not in client code. Content selection is a server-side concern.
+  docs: https://dev.wsc-sports.com/docs/concept-data-sources

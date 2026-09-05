@@ -1,0 +1,115 @@
+{
+  "x-provenance": {
+    "generated": "2026-09-04",
+    "method": "searched",
+    "source": "https://dev.wsc-sports.com/reference/gettrendingrecommendations (response example published in the Blaze Feed API reference)"
+  },
+  "operationId": "getTrendingRecommendations",
+  "path": "/v1/recommendations/trending",
+  "method": "get",
+  "examples": {
+    "trending": {
+      "summary": "Trending Moments",
+      "value": {
+        "lastUpdated": "2026-09-03T09:02:41Z",
+        "recommendations": [
+          {
+            "type": "Moment",
+            "htmlUrl": null,
+            "id": "6a92fa1ee363eba308515c63",
+            "title": "Late header seals the win",
+            "description": "",
+            "subtitle": "",
+            "version": 0,
+            "aspectRatios": [
+              "Vertical"
+            ],
+            "status": "Active",
+            "duration": 14,
+            "createTime": "2026-08-29T15:26:22.95Z",
+            "updateTime": "2026-08-29T21:34:17.801Z",
+            "thumbnails": [
+              {
+                "url": "https://cdn.example.com/games/abc123/moment_VerticalTwoByThree.jpg",
+                "aspectRatio": "TwoToThree"
+              },
+              {
+                "url": "https://cdn.example.com/games/abc123/moment_SquareIcon.jpg",
+                "aspectRatio": "Square"
+              },
+              {
+                "url": "https://cdn.example.com/games/abc123/moment.gif",
+                "aspectRatio": "Vertical"
+              }
+            ],
+            "geoTargeting": {
+              "includedGeos": null,
+              "excludedGeos": null
+            },
+            "metadata": {
+              "competition": {
+                "provider": null,
+                "providerId": null,
+                "wscId": 51282
+              },
+              "competitions": [
+                {
+                  "provider": null,
+                  "providerId": null,
+                  "wscId": 51282
+                }
+              ],
+              "game": null,
+              "team": null,
+              "player": null,
+              "round": null,
+              "season": null
+            },
+            "executionTimeType": "None",
+            "labels": [
+              {
+                "title": "Goals",
+                "identifier": "goals"
+              },
+              {
+                "title": "Season 2026",
+                "identifier": "season_2026"
+              }
+            ],
+            "extraInfo": {
+              "action": "Play",
+              "eventMinute": "SoccerEventMinute",
+              "activeLabels": [
+                "goals",
+                "season_2026"
+              ]
+            },
+            "defaultLanguage": "en",
+            "translatedTitles": {
+              "en": "Late header seals the win",
+              "es": "Un cabezazo tard\u00edo sella la victoria"
+            },
+            "translatedDescriptions": {},
+            "translatedSubtitles": {},
+            "competitionId": "51282",
+            "publishMethod": null,
+            "creationSettings": {
+              "creationTimePeriod": "None",
+              "ruleName": null,
+              "storyType": null
+            },
+            "game": null,
+            "rating": null
+          }
+        ]
+      }
+    },
+    "empty": {
+      "summary": "Nothing trending, or trending not enabled",
+      "value": {
+        "lastUpdated": null,
+        "recommendations": []
+      }
+    }
+  }
+}

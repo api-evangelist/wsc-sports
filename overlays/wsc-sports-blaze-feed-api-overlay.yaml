@@ -1,0 +1,106 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for the WSC Sports Blaze Feed API
+  version: 1.0.0
+extends: ../openapi/wsc-sports-blaze-feed-api.json
+x-provenance:
+  generated: '2026-09-04'
+  method: derived
+  source: >-
+    Derived from the WSC Sports documentation (https://dev.wsc-sports.com/docs/blazefeed-api-v1) and the
+    documentation-published reference spec returned by the provider's own MCP server. Every value applied
+    here is published by WSC Sports somewhere; the overlay only moves it into the generated upstream
+    document, which omits it. The original openapi/ files are never mutated.
+  note: >-
+    The generated upstream swagger at blazefeed.clipro.tv omits the absolute server, every operationId,
+    every summary, and declares only 200 responses. This overlay reconciles it with what WSC Sports
+    actually documents.
+actions:
+- target: $.servers
+  description: >-
+    Replace the relative server /api/blazefeed with the absolute base URL WSC Sports documents. The
+    generated document's relative path is unusable by a client.
+  update:
+  - url: https://blazefeed.clipro.tv
+    description: Blaze Feed API server
+- target: $.info
+  description: Add the description the docs give the API. Title and version are left as published.
+  update:
+    description: >-
+      Server-side pull API for the WSC Sports Experiences content catalog. Returns Stories, Moments and
+      Videos metadata so an integrator can query their catalog and build their own experience around it,
+      plus a trending-recommendations endpoint ranked by WSC Sports.
+- target: $.tags
+  description: Declare the single tag every operation already carries.
+  update:
+  - name: Feed
+    description: Content catalog and recommendations endpoints.
+- target: $.paths['/v1/stories'].get
+  description: Apply the operationId, summary and description from the published API reference.
+  update:
+    operationId: getStories
+    summary: Get stories
+    description: Retrieves a paginated list of stories based on various filter criteria.
+- target: $.paths['/v1/stories/ids'].get
+  description: Apply the operationId, summary and description from the published API reference.
+  update:
+    operationId: getStoriesByIds
+    summary: Get stories by IDs
+    description: Retrieves stories by their content IDs.
+- target: $.paths['/v1/recommendations/trending'].get
+  description: Apply the operationId, summary and description from the published API reference.
+  update:
+    operationId: getTrendingRecommendations
+    summary: Get trending content
+    description: >-
+      Retrieves the content that is currently trending for a single content type, ordered from the highest
+      trending score to the lowest, up to 100 items. Trending scores are not exposed and no field marks an
+      item as trending: the response order carries the ranking. Returns an empty result when trending is
+      not enabled for the app and content type, or when there is no trending content.
+- target: $.paths['/v1/moments'].get
+  description: >-
+    Add a summary and operationId. WSC Sports publishes no operationId or summary for this path in either
+    document — the reference site lists it only as "/v1/moments" — so these are API Evangelist additions
+    following the naming pattern of the three operations the provider did name.
+  update:
+    operationId: getMoments
+    summary: Get moments
+    x-api-evangelist-authored: true
+- target: $.paths['/v1/moments/ids'].get
+  description: See the note on /v1/moments. Authored by API Evangelist, not published by WSC Sports.
+  update:
+    operationId: getMomentsByIds
+    summary: Get moments by IDs
+    x-api-evangelist-authored: true
+- target: $.paths['/v1/videos'].get
+  description: See the note on /v1/moments. Authored by API Evangelist, not published by WSC Sports.
+  update:
+    operationId: getVideos
+    summary: Get videos
+    x-api-evangelist-authored: true
+- target: $.paths['/v1/videos/ids'].get
+  description: See the note on /v1/moments. Authored by API Evangelist, not published by WSC Sports.
+  update:
+    operationId: getVideosByIds
+    summary: Get videos by IDs
+    x-api-evangelist-authored: true
+- target: $.components.securitySchemes
+  description: >-
+    Add the ApiKey scheme the documentation describes as the operative one. The upstream document declares
+    only Bearer/JWT, which no WSC Sports documentation describes. Bearer is left in place rather than
+    removed; see authentication/wsc-sports-authentication.yml for the divergence.
+  update:
+    ApiKey:
+      type: apiKey
+      in: query
+      name: ApiKey
+      description: >-
+        Feed API key issued by a WSC Sports account manager, sent as a query parameter on every request.
+        Distinct from the Experiences app API key used to initialize the SDK.
+- target: $.paths['/v1/recommendations/trending'].get
+  description: >-
+    Record that this operation does not support pagination and is capped at 100 items, which the docs
+    state and the spec does not express.
+  update:
+    x-pagination: none
+    x-max-items: 100

@@ -1,0 +1,76 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/changelog
+url: https://dev.wsc-sports.com/changelog
+scheme: semver-per-platform
+scope: Experiences SDK releases across iOS, Android, Web, React Native and Flutter
+cadence: >-
+  Roughly weekly to fortnightly across the five platforms; mobile platforms tend to release in step
+  (iOS 1.20.0, Android 1.20.3 and Web 0.36.1 all dated 2026-07-20).
+total_entries_listed: 28
+api_changelog:
+  published: false
+  note: >-
+    The changelog covers SDK releases only. WSC Sports publishes no change history for the Blaze Feed API
+    itself, so an integrator has no record of when a field or endpoint on the v1 REST surface changed.
+current_versions:
+- platform: iOS
+  version: 1.20.3
+  date: '2026-08-31'
+- platform: Android
+  version: 1.20.4
+  date: '2026-07-23'
+- platform: Flutter
+  version: 1.20.0
+  date: '2026-08-16'
+- platform: React Native
+  version: 1.20.0
+  date: '2026-07-30'
+- platform: Web
+  version: 0.36.3
+  date: '2026-08-06'
+entries:
+- date: '2026-08-31'
+  version: 1.20.3
+  platform: iOS
+- date: '2026-08-16'
+  version: 1.20.0
+  platform: Flutter
+- date: '2026-08-06'
+  version: 0.36.3
+  platform: Web
+- date: '2026-07-30'
+  version: 1.20.0
+  platform: React Native
+- date: '2026-07-29'
+  version: 1.19.0
+  platform: Flutter
+- date: '2026-07-23'
+  version: 1.20.4
+  platform: Android
+- date: '2026-07-23'
+  version: 1.20.1
+  platform: iOS
+- date: '2026-07-20'
+  version: 0.36.1
+  platform: Web
+- date: '2026-07-20'
+  version: 1.20.0
+  platform: iOS
+- date: '2026-07-20'
+  version: 1.20.3
+  platform: Android
+entries_note: >-
+  The changelog index lists date, version and platform per release but does not summarise the change on
+  the index page, and per-entry breaking-vs-additive classification is not published. breaking/additions
+  fields are therefore omitted rather than guessed.
+historical:
+  url: https://dev.wsc-sports.com/docs/historical-release-notes
+  per_platform:
+  - https://dev.wsc-sports.com/docs/changelog-android
+  - https://dev.wsc-sports.com/docs/changelog-flutter
+corroboration:
+  note: >-
+    The dates above match the first-party registry and release metadata independently: npm
+    @wscsports/blaze-web-sdk 0.36.3 published 2026-08-06, @wscsports/blaze-rtn-sdk 1.20.0 published
+    2026-07-30, and the blaze-specs-ios GitHub release 1.20.3 published 2026-08-31.

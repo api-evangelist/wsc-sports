@@ -1,0 +1,122 @@
+generated: '2026-09-04'
+method: derived
+source: mcp/wsc-sports-mcp-tools.json + openapi/wsc-sports-blaze-feed-api-reference.json
+surfaces:
+  openapi:
+    file: openapi/wsc-sports-blaze-feed-api-reference.json
+    upstream: https://blazefeed.clipro.tv/swagger/v1/swagger.json
+    base_url: https://blazefeed.clipro.tv
+    gated: true
+    gate: Feed API key (ApiKey query parameter) issued by a WSC Sports account manager
+  mcp:
+    url: https://dev.wsc-sports.com/mcp
+    gated: false
+    note: Server introspection is anonymous; calling the underlying API through execute-request is not.
+  graphql:
+    present: false
+shape: generic-introspection
+shape_note: >-
+  WSC Sports' MCP server does not publish one tool per business capability. It publishes a generic
+  OpenAPI-introspection and documentation-search toolset (the ReadMe platform pattern), where the API's
+  real capabilities are reached indirectly through execute-request. The crosswalk therefore binds each
+  tool to the SET of operations it can reach rather than to a single operationId, and records the seven
+  REST operations separately in rest_only[] because no tool names them individually.
+crosswalk:
+- tool: list-endpoints
+  category: api-introspection
+  rest:
+  - getStories
+  - getStoriesByIds
+  - getTrendingRecommendations
+  - get_v1-moments
+  - get_v1-moments-ids
+  - get_v1-videos
+  - get_v1-videos-ids
+  binding: catalog
+  confidence: high
+  note: Verified by calling the tool; it returned exactly the seven Blaze Feed API paths and their methods.
+- tool: get-endpoint
+  category: api-introspection
+  rest:
+  - getStories
+  - getStoriesByIds
+  - getTrendingRecommendations
+  - get_v1-moments
+  - get_v1-moments-ids
+  - get_v1-videos
+  - get_v1-videos-ids
+  binding: describe
+  confidence: high
+  note: >-
+    Verified against all seven paths; each call returned a valid reduced OpenAPI 3.0.1 document carrying
+    servers, parameters, responses and component schemas. These responses are the source of
+    openapi/wsc-sports-blaze-feed-api-reference.json.
+- tool: search-endpoints
+  category: api-introspection
+  rest:
+  - getStories
+  - getStoriesByIds
+  - getTrendingRecommendations
+  - get_v1-moments
+  - get_v1-moments-ids
+  - get_v1-videos
+  - get_v1-videos-ids
+  binding: search
+  confidence: high
+- tool: execute-request
+  category: api-execution
+  rest:
+  - getStories
+  - getStoriesByIds
+  - getTrendingRecommendations
+  - get_v1-moments
+  - get_v1-moments-ids
+  - get_v1-videos
+  - get_v1-videos-ids
+  binding: proxy
+  confidence: high
+  note: >-
+    Takes a HAR request object, so it can invoke any of the seven operations. Not probed against the live
+    API because that requires a Feed API key we do not hold and must not obtain.
+mcp_only:
+- tool: search
+  reason: Documentation search over dev.wsc-sports.com. No REST equivalent is published; the docs site has no public search API.
+- tool: fetch
+  reason: Documentation retrieval by ReadMe page ID. No REST equivalent is published.
+rest_only:
+- operationId: getStories
+  path: /v1/stories
+  method: get
+  reason: Reachable only via the generic execute-request proxy; no dedicated MCP tool exposes it.
+- operationId: getStoriesByIds
+  path: /v1/stories/ids
+  method: get
+  reason: Reachable only via the generic execute-request proxy; no dedicated MCP tool exposes it.
+- operationId: null
+  path: /v1/moments
+  method: get
+  reason: Reachable only via the generic execute-request proxy. The published spec assigns no operationId to this path.
+- operationId: null
+  path: /v1/moments/ids
+  method: get
+  reason: Reachable only via the generic execute-request proxy. The published spec assigns no operationId to this path.
+- operationId: null
+  path: /v1/videos
+  method: get
+  reason: Reachable only via the generic execute-request proxy. The published spec assigns no operationId to this path.
+- operationId: null
+  path: /v1/videos/ids
+  method: get
+  reason: Reachable only via the generic execute-request proxy. The published spec assigns no operationId to this path.
+- operationId: getTrendingRecommendations
+  path: /v1/recommendations/trending
+  method: get
+  reason: Reachable only via the generic execute-request proxy; no dedicated MCP tool exposes it.
+coverage:
+  mcp_tools: 6
+  rest_operations: 7
+  tools_bound_to_rest: 4
+  tools_mcp_only: 2
+  rest_operations_with_dedicated_tool: 0
+  rest_operations_reachable_via_proxy: 7
+  graphql_fields: 0

@@ -1,0 +1,88 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+docs: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+api: WSC Sports Blaze Feed API
+format: undocumented
+rfc9457: false
+problem_json: false
+envelope:
+  documented: false
+  media_type: unknown
+  note: >-
+    WSC Sports publishes a status-code table but never documents an error response body — no field names,
+    no error code vocabulary, no example. The OpenAPI compounds this: all seven operations declare only a
+    200 response, so the specification itself describes no failure at all. An unauthenticated
+    GET /v1/stories was observed returning 401 with a zero-byte body and no JSON, so it is possible there
+    is no error envelope to document. Not asserted either way.
+derived_from_spec:
+  responses_declared:
+    '200': 7
+  responses_4xx_5xx_declared: 0
+  note: >-
+    Nothing could be derived from the OpenAPI 4xx/5xx responses because there are none in either the
+    upstream swagger document or the documentation-published reference spec. Every entry below comes from
+    the prose status-code table.
+problem_types:
+- status: 200
+  title: OK
+  meaning: Request successful.
+  category: success
+- status: 400
+  title: Bad Request
+  meaning: Invalid request parameters.
+  category: client
+  likely_causes:
+  - Malformed date in UpdateTime.From / CreateTime.From
+  - Unknown value for Statuses or Entities.IdType
+  - ContentType outside Story or Moment on /v1/recommendations/trending
+  remediation: Validate parameter values against the enums in the OpenAPI before retrying; do not retry unchanged.
+  remediation_source: derived
+- status: 401
+  title: Unauthorized
+  meaning: Authentication required.
+  category: client
+  likely_causes:
+  - ApiKey query parameter missing
+  - ApiKey invalid or revoked
+  - The Experiences app API key was sent instead of the Feed API key
+  remediation: >-
+    Confirm the ApiKey query parameter is present and that it is the Feed API key, which the docs state is
+    a different credential from the Experiences app API key. Do not retry without a new credential.
+  remediation_source: derived
+  observed:
+    url: https://blazefeed.clipro.tv/v1/stories
+    http_status: 401
+    body_bytes: 0
+- status: 403
+  title: Forbidden
+  meaning: Insufficient permissions.
+  category: client
+  remediation: The key is recognised but not entitled to the requested content. Contact the WSC Sports account manager.
+  remediation_source: derived
+- status: 404
+  title: Not Found
+  meaning: Resource not found.
+  category: client
+  remediation: Verify the path and any content IDs. Note that the API host answers 200 with a plain-text banner for unrouted paths, so a 404 here indicates a routed endpoint rejecting the resource.
+  remediation_source: derived
+- status: 429
+  title: Too Many Requests
+  meaning: Rate limit exceeded.
+  category: client
+  remediation: Back off using X-RateLimit-Reset. No Retry-After header is documented. See rate-limits/wsc-sports-rate-limits.yml.
+  remediation_source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+  note: Documented in the Rate Limitation section rather than the status-code table.
+- status: 500
+  title: Internal Server Error
+  meaning: Server error.
+  category: server
+  remediation: Retry with exponential backoff. Safe to retry because every operation is a GET.
+  remediation_source: derived
+error_code_registry:
+  published: false
+  note: WSC Sports publishes no numeric or symbolic error-code registry for the Blaze Feed API.
+gaps_to_raise_with_provider:
+- The OpenAPI declares no 4xx/5xx responses, so generated clients will not model failure.
+- No error response body is documented for any status.
+- No Retry-After on 429.

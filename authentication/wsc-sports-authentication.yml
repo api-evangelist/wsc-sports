@@ -1,0 +1,52 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+docs: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+summary:
+  types:
+  - apiKey
+  - http
+  primary: apiKey
+  transport: query parameter
+  note: >-
+    The two OpenAPI documents in openapi/ disagree about the auth scheme, and the documentation is
+    authoritative. The generated upstream swagger (blazefeed.clipro.tv/swagger/v1/swagger.json) declares a
+    global HTTP Bearer/JWT requirement, but the documentation-published reference spec and the Blazefeed
+    API guide both state the API is called with a Feed API key in the ApiKey query parameter, and every
+    published example uses it. The Bearer scheme appears to be a framework default left in the generated
+    document; no WSC Sports documentation describes obtaining or using a JWT for this API.
+schemes:
+- name: ApiKey
+  type: apiKey
+  in: query
+  parameter: ApiKey
+  required: true
+  description: >-
+    Feed API key issued by a WSC Sports account manager, sent on every request as the ApiKey query
+    parameter. Explicitly distinct from the Experiences app API key used to initialize the mobile/Web SDK.
+  example_form: https://blazefeed.clipro.tv/v1/stories?ApiKey={MyToken}
+  sources:
+  - https://dev.wsc-sports.com/docs/blazefeed-api-v1
+  - openapi/wsc-sports-blaze-feed-api-reference.json
+- name: Bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Standard Bearer token, declared as the global security requirement in the generated upstream swagger document.
+  status: declared-in-spec-only
+  note: Not described anywhere in the published documentation; treat ApiKey as the operative scheme.
+  sources:
+  - openapi/wsc-sports-blaze-feed-api.json
+credential_issuance:
+  self_serve: false
+  process: Keys are issued by a WSC Sports account manager; there is no public signup or key-provisioning endpoint.
+  source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+related_credentials:
+- name: Experiences app API key
+  used_by: Experiences SDK (iOS, Android, Web, React Native, Flutter) initialization
+  note: A separate credential from the Blazefeed Feed API key. The docs call this out explicitly to prevent confusion.
+  source: https://dev.wsc-sports.com/docs/personalization-explicit
+observed:
+- url: https://blazefeed.clipro.tv/v1/stories
+  http_status: 401
+  note: Unauthenticated GET returns 401 with an empty body, confirming the surface is credential-gated.

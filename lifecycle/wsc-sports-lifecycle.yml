@@ -1,0 +1,73 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/sdk-update-support-policy
+api: WSC Sports Experiences / Blaze Feed API
+versioning:
+  api:
+    style: uri-path
+    current: v1
+    spec_version: '1.0'
+    note: The Blaze Feed API carries its major version in the first path segment. No other version has ever been published.
+  sdk:
+    style: semver-per-platform
+    note: >-
+      Each Experiences SDK versions independently. As of 2026-09-04 the published lines are iOS 1.20.3,
+      Android 1.20.4, React Native 1.20.0, Flutter 1.20.0 and Web 0.36.3. The Web SDK is still on a 0.x
+      line while the mobile SDKs are on 1.x, so the number does not carry across platforms.
+    source: https://dev.wsc-sports.com/changelog
+deprecation:
+  policy_published: true
+  policy_url: https://dev.wsc-sports.com/docs/sdk-update-support-policy
+  applies_to: Experiences SDK versions adopted in a customer app
+  applies_to_api: false
+  api_note: >-
+    The published policy governs SDK version support only. WSC Sports publishes no deprecation or sunset
+    policy for the Blaze Feed API itself, and no API endpoint is marked deprecated in either OpenAPI
+    document.
+  rfc8594_headers: false
+  rfc8594_note: No Sunset or Deprecation response header is documented.
+  responsibility_model:
+    platform: WSC Sports manages the Arena service-side environment.
+    integration: The customer manages the SDK version adopted in their app and their release process.
+  required_update_windows:
+  - update_type: minor
+    window: within 30 days of release
+    impact: Adopt the SDK version; in most cases no app-level changes are required.
+  - update_type: major
+    window: within 90 days of release
+    impact: May require development work, changes or custom adjustments in the app.
+  - update_type: critical
+    window: immediately, and no later than 10 business days
+    impact: Critical to SDK functionality or security and must be adopted.
+  consequence_of_missing_window: >-
+    Features may stop working as expected and support becomes limited: WSC Sports will require an upgrade
+    to a supported version before performing a full technical investigation, offering best-effort help on
+    urgent issues in the meantime.
+  support_status:
+    supported: Version is inside the required implementation window — full investigation, troubleshooting and bug analysis.
+    outside_window: Limited best-effort support; the support team supplies a target version and an upgrade roadmap.
+support:
+  channel: account manager and support team
+  contact: https://wsc-sports.com/contact-us/
+  developer_docs: https://dev.wsc-sports.com/docs/getting-started
+  note: >-
+    There is no public developer support forum, community or ticket portal. Support is routed through the
+    commercial relationship, consistent with the API being key-gated by an account manager.
+sla:
+  published: false
+  note: No SLA, uptime commitment or support-response target is published on the public developer site.
+status_page:
+  published: false
+  probed:
+  - url: https://status.wsc-sports.com/
+    status: 000
+    note: DNS does not resolve.
+  note: >-
+    No status page was found for either wsc-sports.com or the blazefeed.clipro.tv API host. No StatusPage
+    pointer is emitted. Note that the ReadMe docs platform embeds its own vendor status widget
+    (readmestatus.com) on error pages, which reports ReadMe's availability, not WSC Sports'.
+deprecated_operations:
+  derived_from: openapi/wsc-sports-blaze-feed-api-reference.json
+  count: 0
+  operations: []
+  note: No operation in either OpenAPI document carries deprecated true.

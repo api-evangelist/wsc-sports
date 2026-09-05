@@ -1,0 +1,1574 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Blaze Feed API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://blazefeed.clipro.tv",
+      "description": "Blaze Feed API server"
+    }
+  ],
+  "paths": {
+    "/v1/stories": {
+      "get": {
+        "summary": "Get stories",
+        "description": "Retrieves a paginated list of stories based on various filter criteria",
+        "operationId": "getStories",
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyQuery"
+          },
+          {
+            "name": "Title",
+            "in": "query",
+            "description": "Filter stories by title",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LabelsFilterExpression",
+            "in": "query",
+            "description": "Filter expression for labels",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Statuses",
+            "in": "query",
+            "description": "Filter by content status (Draft or Active)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ContentStatus"
+              }
+            }
+          },
+          {
+            "name": "Geo",
+            "in": "query",
+            "description": "Geographic targeting filter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "OnlyLive",
+            "in": "query",
+            "description": "Filter to only return live stories",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "UpdateTime.From",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "UpdateTime.To",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateTime.From",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateTime.To",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Game.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Game.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Team.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Team.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Player.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Player.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Round.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Round.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Season.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Season.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.IdType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/EntityIdType"
+            }
+          },
+          {
+            "name": "PageNum",
+            "in": "query",
+            "description": "Page number for pagination (0-based)",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoryDTOPaginationSearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stories/ids": {
+      "get": {
+        "summary": "Get stories by IDs",
+        "description": "Retrieves stories by their content IDs",
+        "operationId": "getStoriesByIds",
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyQuery"
+          },
+          {
+            "name": "ContentIds",
+            "in": "query",
+            "required": true,
+            "description": "Array of story content IDs to retrieve",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "PageNum",
+            "in": "query",
+            "description": "Page number for pagination (0-based)",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoryDTOPaginationSearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/moments": {
+      "get": {
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyQuery"
+          },
+          {
+            "name": "Title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LabelsFilterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Statuses",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ContentStatus"
+              }
+            }
+          },
+          {
+            "name": "Geo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "OnlyLive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "UpdateTime.From",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "UpdateTime.To",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateTime.From",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateTime.To",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Game.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Game.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Team.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Team.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Player.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Player.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Round.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Round.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Season.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Season.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.IdType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/EntityIdType"
+            }
+          },
+          {
+            "name": "PageNum",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MomentDTOPaginationSearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/moments/ids": {
+      "get": {
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyQuery"
+          },
+          {
+            "name": "ContentIds",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "PageNum",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MomentDTOPaginationSearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/videos": {
+      "get": {
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyQuery"
+          },
+          {
+            "name": "Title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LabelsFilterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Statuses",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ContentStatus"
+              }
+            }
+          },
+          {
+            "name": "Geo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "OnlyLive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "UpdateTime.From",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "UpdateTime.To",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateTime.From",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateTime.To",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Game.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Game.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Team.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Team.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Player.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Player.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Round.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Round.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.Season.WscId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Entities.Season.ServiceProviderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Entities.IdType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/EntityIdType"
+            }
+          },
+          {
+            "name": "PageNum",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoDTOPaginationSearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/videos/ids": {
+      "get": {
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyQuery"
+          },
+          {
+            "name": "ContentIds",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "PageNum",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoDTOPaginationSearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recommendations/trending": {
+      "get": {
+        "summary": "Get trending content",
+        "description": "Retrieves the content that is currently trending for a single content type, ordered from the highest trending score to the lowest, up to 100 items. Trending scores are not exposed and no field marks an item as trending: the response order carries the ranking. Returns an empty result when trending is not enabled for the app and content type, or when there is no trending content.",
+        "operationId": "getTrendingRecommendations",
+        "tags": [
+          "Feed"
+        ],
+        "parameters": [
+          {
+            "name": "ApiKey",
+            "in": "query",
+            "description": "API key authentication. Use the Feed Key, which differs from the app API key.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ContentType",
+            "in": "query",
+            "description": "The content type to return trending content for. One value per call. Only Story and Moment are supported.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Story",
+                "Moment"
+              ]
+            }
+          },
+          {
+            "name": "Geo",
+            "in": "query",
+            "description": "Return content trending in a specific country, as an ISO 3166 two-letter country code, for example US. Omit for globally trending content.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationsResponseDTO"
+                },
+                "examples": {
+                  "trending": {
+                    "summary": "Trending Moments",
+                    "value": {
+                      "lastUpdated": "2026-09-03T09:02:41Z",
+                      "recommendations": [
+                        {
+                          "type": "Moment",
+                          "htmlUrl": null,
+                          "id": "6a92fa1ee363eba308515c63",
+                          "title": "Late header seals the win",
+                          "description": "",
+                          "subtitle": "",
+                          "version": 0,
+                          "aspectRatios": [
+                            "Vertical"
+                          ],
+                          "status": "Active",
+                          "duration": 14,
+                          "createTime": "2026-08-29T15:26:22.95Z",
+                          "updateTime": "2026-08-29T21:34:17.801Z",
+                          "thumbnails": [
+                            {
+                              "url": "https://cdn.example.com/games/abc123/moment_VerticalTwoByThree.jpg",
+                              "aspectRatio": "TwoToThree"
+                            },
+                            {
+                              "url": "https://cdn.example.com/games/abc123/moment_SquareIcon.jpg",
+                              "aspectRatio": "Square"
+                            },
+                            {
+                              "url": "https://cdn.example.com/games/abc123/moment.gif",
+                              "aspectRatio": "Vertical"
+                            }
+                          ],
+                          "geoTargeting": {
+                            "includedGeos": null,
+                            "excludedGeos": null
+                          },
+                          "metadata": {
+                            "competition": {
+                              "provider": null,
+                              "providerId": null,
+                              "wscId": 51282
+                            },
+                            "competitions": [
+                              {
+                                "provider": null,
+                                "providerId": null,
+                                "wscId": 51282
+                              }
+                            ],
+                            "game": null,
+                            "team": null,
+                            "player": null,
+                            "round": null,
+                            "season": null
+                          },
+                          "executionTimeType": "None",
+                          "labels": [
+                            {
+                              "title": "Goals",
+                              "identifier": "goals"
+                            },
+                            {
+                              "title": "Season 2026",
+                              "identifier": "season_2026"
+                            }
+                          ],
+                          "extraInfo": {
+                            "action": "Play",
+                            "eventMinute": "SoccerEventMinute",
+                            "activeLabels": [
+                              "goals",
+                              "season_2026"
+                            ]
+                          },
+                          "defaultLanguage": "en",
+                          "translatedTitles": {
+                            "en": "Late header seals the win",
+                            "es": "Un cabezazo tard\u00edo sella la victoria"
+                          },
+                          "translatedDescriptions": {},
+                          "translatedSubtitles": {},
+                          "competitionId": "51282",
+                          "publishMethod": null,
+                          "creationSettings": {
+                            "creationTimePeriod": "None",
+                            "ruleName": null,
+                            "storyType": null
+                          },
+                          "game": null,
+                          "rating": null
+                        }
+                      ]
+                    }
+                  },
+                  "empty": {
+                    "summary": "Nothing trending, or trending not enabled",
+                    "value": {
+                      "lastUpdated": null,
+                      "recommendations": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or unsupported ContentType, or an invalid Geo country code"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ApiKeyQuery": {
+        "name": "ApiKey",
+        "in": "query",
+        "description": "API key authentication",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "AssetVideoAspectRatio": {
+        "enum": [
+          "Square",
+          "Horizontal",
+          "Vertical",
+          "Unknown",
+          "FourToFive",
+          "FiveToFour",
+          "ThreeToFour",
+          "FourToThree",
+          "TwoToOne",
+          "OneToTwo",
+          "SevenToEight",
+          "EightToSeven",
+          "TwoToThree",
+          "ThreeToOne",
+          "ThreeToTwo",
+          "OneToThree",
+          "ThreeToEight",
+          "FiveToOne"
+        ],
+        "type": "string"
+      },
+      "ContentMetadata": {
+        "type": "object",
+        "properties": {
+          "competition": {
+            "$ref": "#/components/schemas/MetadataEntityIds"
+          },
+          "competitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntityIds"
+            },
+            "nullable": true
+          },
+          "game": {
+            "$ref": "#/components/schemas/MetadataEntityIds"
+          },
+          "team": {
+            "$ref": "#/components/schemas/MetadataEntityIds"
+          },
+          "player": {
+            "$ref": "#/components/schemas/MetadataEntityIds"
+          },
+          "round": {
+            "$ref": "#/components/schemas/MetadataEntityIds"
+          },
+          "season": {
+            "$ref": "#/components/schemas/MetadataEntityIds"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContentStatus": {
+        "enum": [
+          "Draft",
+          "Active"
+        ],
+        "type": "string"
+      },
+      "ContentType": {
+        "enum": [
+          "Story",
+          "Moment",
+          "Video"
+        ],
+        "type": "string"
+      },
+      "EntityIdType": {
+        "enum": [
+          "WscId",
+          "ServiceProviderId"
+        ],
+        "type": "string"
+      },
+      "ExecutionTimeType": {
+        "enum": [
+          "None",
+          "PreGame",
+          "InGame",
+          "PostGame"
+        ],
+        "type": "string"
+      },
+      "GeoTargeting": {
+        "type": "object",
+        "properties": {
+          "includedGeos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "excludedGeos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "identifier": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MetadataEntityIds": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "wscId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ThumbnailDTO": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "aspectRatio": {
+            "$ref": "#/components/schemas/AssetVideoAspectRatio"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MomentDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ContentType"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "aspectRatios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetVideoAspectRatio"
+            },
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ContentStatus"
+          },
+          "duration": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "Length in seconds."
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ThumbnailDTO"
+            },
+            "nullable": true
+          },
+          "geoTargeting": {
+            "$ref": "#/components/schemas/GeoTargeting"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ContentMetadata"
+          },
+          "executionTimeType": {
+            "$ref": "#/components/schemas/ExecutionTimeType"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelDTO"
+            },
+            "nullable": true
+          },
+          "extraInfo": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          },
+          "defaultLanguage": {
+            "type": "string",
+            "nullable": true,
+            "description": "Language code of the original title, for example en."
+          },
+          "translatedTitles": {
+            "$ref": "#/components/schemas/TranslatedStrings"
+          },
+          "translatedDescriptions": {
+            "$ref": "#/components/schemas/TranslatedStrings"
+          },
+          "translatedSubtitles": {
+            "$ref": "#/components/schemas/TranslatedStrings"
+          },
+          "competitionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "publishMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "creationSettings": {
+            "$ref": "#/components/schemas/CreationSettings"
+          },
+          "game": {
+            "type": "object",
+            "nullable": true,
+            "description": "Game information, when available."
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "htmlUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MomentDTOPaginationSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalItems": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MomentDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TranslatedStrings": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        },
+        "nullable": true,
+        "description": "Translations keyed by language code, for example en, es, ar."
+      },
+      "CreationSettings": {
+        "type": "object",
+        "properties": {
+          "creationTimePeriod": {
+            "type": "string",
+            "nullable": true
+          },
+          "ruleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "storyType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "nullable": true
+      },
+      "PageDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "Length in seconds."
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ThumbnailDTO"
+            },
+            "nullable": true
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ContentMetadata"
+          },
+          "extraInfo": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StoryDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/ContentType"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "aspectRatios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetVideoAspectRatio"
+            },
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ContentStatus"
+          },
+          "isLive": {
+            "type": "boolean"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ThumbnailDTO"
+            },
+            "nullable": true
+          },
+          "geoTargeting": {
+            "$ref": "#/components/schemas/GeoTargeting"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ContentMetadata"
+          },
+          "executionTimeType": {
+            "$ref": "#/components/schemas/ExecutionTimeType"
+          },
+          "htmlUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageDTO"
+            },
+            "nullable": true
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelDTO"
+            },
+            "nullable": true
+          },
+          "extraInfo": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecommendationsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the newest item in the trending set was created. Null when recommendations is empty."
+          },
+          "recommendations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StoryDTO"
+            },
+            "nullable": true,
+            "description": "The trending content, matching the requested content type. Up to 100 items. For Moment requests each item is a Moment object."
+          }
+        },
+        "additionalProperties": false
+      },
+      "StoryDTOPaginationSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalItems": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StoryDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VideoDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ContentType"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "aspectRatios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetVideoAspectRatio"
+            },
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ContentStatus"
+          },
+          "duration": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "Length in seconds."
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ThumbnailDTO"
+            },
+            "nullable": true
+          },
+          "geoTargeting": {
+            "$ref": "#/components/schemas/GeoTargeting"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ContentMetadata"
+          },
+          "executionTimeType": {
+            "$ref": "#/components/schemas/ExecutionTimeType"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelDTO"
+            },
+            "nullable": true
+          },
+          "extraInfo": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          },
+          "defaultLanguage": {
+            "type": "string",
+            "nullable": true,
+            "description": "Language code of the original title, for example en."
+          },
+          "translatedTitles": {
+            "$ref": "#/components/schemas/TranslatedStrings"
+          },
+          "translatedDescriptions": {
+            "$ref": "#/components/schemas/TranslatedStrings"
+          },
+          "translatedSubtitles": {
+            "$ref": "#/components/schemas/TranslatedStrings"
+          },
+          "competitionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "publishMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "creationSettings": {
+            "$ref": "#/components/schemas/CreationSettings"
+          },
+          "game": {
+            "type": "object",
+            "nullable": true,
+            "description": "Game information, when available."
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VideoDTOPaginationSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalItems": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VideoDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

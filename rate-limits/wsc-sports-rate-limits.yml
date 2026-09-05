@@ -1,0 +1,45 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+docs: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+api: WSC Sports Blaze Feed API
+limit_count: 0
+limits: []
+limits_note: >-
+  WSC Sports documents that the Blaze Feed API is rate limited and documents the full runtime signal, but
+  publishes no numeric limit, window, burst or per-tier allowance anywhere in the developer
+  documentation. limit_count is 0 because there is no published number to record — not because limits are
+  absent. An integrator cannot size a polling loop from the documentation; they must read the headers at
+  runtime or ask their account manager.
+response_headers:
+- name: X-RateLimit-Limit
+  meaning: Maximum number of requests allowed in a time window.
+- name: X-RateLimit-Remaining
+  meaning: Number of requests left in the current time window.
+- name: X-RateLimit-Reset
+  meaning: Time in seconds until the rate limit resets.
+header_convention: legacy X-RateLimit-* (not the RFC 9331 RateLimit-* draft form)
+retry_after: false
+retry_after_note: Retry-After is not documented for the 429 response.
+exhaustion:
+  status: 429
+  meaning: Too Many Requests
+  documented: true
+scope:
+  documented: false
+  note: >-
+    The documentation does not state whether the limit is per API key, per account or per endpoint. Given
+    that the Feed API key is issued per customer by an account manager, per-key is the likely scope, but
+    the docs do not say so and it is not recorded as fact.
+observed:
+- url: https://blazefeed.clipro.tv/v1/stories
+  http_status: 401
+  headers_seen: []
+  note: >-
+    An unauthenticated request is rejected at 401 before any rate-limit header is emitted, so the headers
+    could not be confirmed live without a Feed API key. Recorded as documented, not probed.
+guidance_for_agents: >-
+  Read X-RateLimit-Remaining on every response and back off before it reaches zero; on 429 there is no
+  Retry-After, so fall back to X-RateLimit-Reset (seconds) or exponential backoff. Prefer the content
+  webhooks over polling: the provider explicitly positions webhooks as the way to avoid polling the
+  catalog.

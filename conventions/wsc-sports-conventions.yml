@@ -1,0 +1,142 @@
+generated: '2026-09-04'
+method: searched
+source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+derived_from:
+- openapi/wsc-sports-blaze-feed-api-reference.json
+- openapi/wsc-sports-blaze-feed-api.json
+api: WSC Sports Blaze Feed API
+surface_shape:
+  style: REST
+  methods:
+  - GET
+  read_only: true
+  note: >-
+    All seven published operations are GET. The Blaze Feed API has no public mutating surface; content is
+    authored in the Arena CMS, not through this API. That single fact determines the idempotency,
+    reversibility and dry-run verdicts below.
+auth:
+  style: api-key-in-query
+  parameter: ApiKey
+  required_on: all operations
+  detail: See authentication/wsc-sports-authentication.yml
+  observation: >-
+    Carrying the credential in the query string rather than a header means it is exposed to proxy logs,
+    browser history and Referer headers. The provider's own JavaScript examples put the key in the URL.
+idempotency:
+  coverage: na
+  mechanism: none
+  scope: []
+  note: >-
+    Not applicable. Every operation is a GET and therefore already safe and naturally idempotent; there is
+    no mutating request for an Idempotency-Key to protect. No idempotency header is documented, and none
+    is needed. Recorded as na rather than none so the dimension leaves the denominator instead of scoring
+    the provider zero for a mechanism a read-only API cannot need.
+reversibility:
+  grade: na
+  write_surface: false
+  reversal_operations: []
+  note: >-
+    Not applicable. The API exposes no create, update or delete operation, so there is no action an agent
+    could take through it that would need taking back. Content lifecycle (publish, unpublish, schedule,
+    delete) happens in the Arena CMS, which has no public API. No reversal window is asserted because the
+    documentation states none.
+dry_run_mode:
+  supported: na
+  note: Not applicable to a read-only surface; every call is already a rehearsal.
+pagination:
+  style: page-number
+  params:
+  - name: PageNum
+    type: integer
+    zero_based: true
+    description: Page index starting from 0.
+  - name: PageSize
+    type: integer
+    description: Number of results per page.
+  applies_to:
+  - /v1/stories
+  - /v1/stories/ids
+  - /v1/moments
+  - /v1/moments/ids
+  - /v1/videos
+  - /v1/videos/ids
+  not_supported_on:
+  - /v1/recommendations/trending
+  response_envelope: '*PaginationSearchResponse (StoryDTOPaginationSearchResponse, MomentDTOPaginationSearchResponse, VideoDTOPaginationSearchResponse)'
+  note: >-
+    /v1/recommendations/trending does not page and is capped at 100 items; the response order carries the
+    trending rank and no field marks an item as trending.
+  source: https://dev.wsc-sports.com/docs/blazefeed-api-v1
+filtering:
+  style: query-parameters
+  content_filters:
+  - Title
+  - LabelsFilterExpression
+  - Statuses
+  - Geo
+  - OnlyLive
+  time_range_filters:
+  - UpdateTime.From
+  - UpdateTime.To
+  - CreateTime.From
+  - CreateTime.To
+  entity_filters:
+    pattern: 'Entities.<Entity>.WscId and Entities.<Entity>.ServiceProviderId, plus Entities.IdType'
+    entities:
+    - Game
+    - Team
+    - Player
+    - Round
+    - Season
+    note: >-
+      Dot-notation query parameters are the .NET model-binding convention showing through. Every sport
+      entity can be addressed either by WSC Sports' own integer id (WscId) or by the customer's own
+      provider id (ServiceProviderId), selected with Entities.IdType.
+  id_lookup:
+    param: ContentIds
+    style: repeated query parameter
+    example: '?ContentIds=abc&ContentIds=def'
+    note: The prose says "each separated by a comma" but the published example and the array schema both use repeated parameters.
+field_expansion:
+  supported: false
+  note: No sparse-fieldset, expand or include parameter is documented or present in the spec.
+metadata:
+  supported: false
+  note: >-
+    No customer-writable metadata bag. The metadata object on each content item is WSC Sports' own sport
+    entity mapping (competition, game, team, player, round, season), and it is read-only.
+request_id_tracing:
+  supported: false
+  note: No correlation or request-id header is documented, and none appears in the spec.
+versioning:
+  style: uri-path
+  current: v1
+  detail: The major version is the first path segment (/v1/...). info.version in the spec is 1.0.
+  note: See lifecycle/wsc-sports-lifecycle.yml.
+error_envelope:
+  format: undocumented
+  problem_json: false
+  note: >-
+    The documentation publishes a status-code table (200/400/401/403/404/500 plus 429 on rate-limit
+    exhaustion) but no error body shape, and the OpenAPI declares only 200 responses on all seven
+    operations. An unauthenticated GET /v1/stories returned 401 with a zero-byte body, so there may be no
+    error envelope at all. See errors/wsc-sports-problem-types.yml.
+rate_limit_signaling:
+  supported: true
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  exhaustion_status: 429
+  note: Documented but the numeric limits are not published. See rate-limits/wsc-sports-rate-limits.yml.
+event_delivery:
+  supported: true
+  style: outbound webhooks
+  note: See asyncapi/wsc-sports-content-webhooks.yml.
+cross_references:
+  authentication: authentication/wsc-sports-authentication.yml
+  errors: errors/wsc-sports-problem-types.yml
+  lifecycle: lifecycle/wsc-sports-lifecycle.yml
+  rate_limits: rate-limits/wsc-sports-rate-limits.yml
+  webhooks: asyncapi/wsc-sports-content-webhooks.yml
+  data_model: data-model/wsc-sports-data-model.yml
