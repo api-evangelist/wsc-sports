@@ -1,0 +1,14 @@
+{
+  "repo": "wsc-sports",
+  "feeds": [
+    {
+      "source": "https://github.com/WSCSports",
+      "feed_url": "https://github.com/WSCSports",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-09-06T19:17:18Z"
+}
