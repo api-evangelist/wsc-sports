@@ -11,6 +11,11 @@ deployment:
   package: https://www.npmjs.com/package/@wscsports/blaze-web-sdk-mcp
   auth: none
   verified: probed
+  probe_prior: (never probed)
+  probe: live
+  probe_why: live
+  checked: '2026-09-11'
+  source: claimed-backlog re-probe 2026-09-11
 x-evidence:
   fetched: '2026-09-04'
   url: https://dev.wsc-sports.com/mcp
@@ -23,26 +28,18 @@ x-evidence:
   capabilities:
     tools:
       listChanged: false
-  note: >-
-    initialize and tools/list both answered 200 anonymously with no OAuth challenge. The six tools below
-    are the verbatim tools/list response, saved to mcp/wsc-sports-mcp-tools.json with full inputSchemas.
+  note: initialize and tools/list both answered 200 anonymously with no OAuth challenge. The six tools
+    below are the verbatim tools/list response, saved to mcp/wsc-sports-mcp-tools.json with full inputSchemas.
 servers:
 - name: wsc-blaze
   kind: remote
   url: https://dev.wsc-sports.com/mcp
   auth: none
   official: true
-  description: >-
-    The Experiences documentation and API MCP server. Exposes OpenAPI introspection over the Blaze Feed
-    API plus documentation search and retrieval. Verified live and anonymous on 2026-09-04.
-  config: |
-    {
-      "mcpServers": {
-        "wsc-blaze": {
-          "url": "https://dev.wsc-sports.com/mcp"
-        }
-      }
-    }
+  description: The Experiences documentation and API MCP server. Exposes OpenAPI introspection over the
+    Blaze Feed API plus documentation search and retrieval. Verified live and anonymous on 2026-09-04.
+  config: "{\n  \"mcpServers\": {\n    \"wsc-blaze\": {\n      \"url\": \"https://dev.wsc-sports.com/mcp\"\
+    \n    }\n  }\n}\n"
 - name: blaze-web-sdk-mcp
   kind: local-stdio
   install: npx -y @wscsports/blaze-web-sdk-mcp
@@ -51,7 +48,8 @@ servers:
   published: '2026-08-18'
   auth: none
   official: true
-  description: MCP server for AI-powered Blaze Web SDK integration assistance. Published first-party under the @wscsports npm scope.
+  description: MCP server for AI-powered Blaze Web SDK integration assistance. Published first-party under
+    the @wscsports npm scope.
   docs: https://dev.wsc-sports.com/docs/web-sdk-mcp
 - name: blaze-mobile-sdk-mcp
   kind: local-stdio
@@ -61,15 +59,15 @@ servers:
   published: '2026-07-23'
   auth: none
   official: true
-  description: MCP server for AI-powered Blaze Mobile SDK integration assistance (iOS and Android). Published first-party under the @wscsports npm scope.
+  description: MCP server for AI-powered Blaze Mobile SDK integration assistance (iOS and Android). Published
+    first-party under the @wscsports npm scope.
 - name: sample-app-servers
   kind: remote
   official: false
   third_party_host: gitmcp.io
-  description: >-
-    The Experiences MCP docs page also recommends three gitmcp.io endpoints that expose WSC Sports' own
-    public sample-app repositories. The repositories are first-party; the MCP hosting is a third-party
-    wrapper (gitmcp.io), so these are not counted as WSC-operated servers.
+  description: The Experiences MCP docs page also recommends three gitmcp.io endpoints that expose WSC
+    Sports' own public sample-app repositories. The repositories are first-party; the MCP hosting is a
+    third-party wrapper (gitmcp.io), so these are not counted as WSC-operated servers.
   endpoints:
   - https://gitmcp.io/WSCSports/blaze-sample-android-v2
   - https://gitmcp.io/WSCSports/blaze-sample-ios-v2
@@ -80,27 +78,28 @@ tools:
   description: Lists all API paths and their HTTP methods with summaries, organized by path.
 - name: get-endpoint
   category: api-introspection
-  description: Gets detailed information about a specific API endpoint, including security schemes and servers.
+  description: Gets detailed information about a specific API endpoint, including security schemes and
+    servers.
 - name: search-endpoints
   category: api-introspection
-  description: Performs a deep search through paths, operations, and parameters to discover relevant API endpoints.
+  description: Performs a deep search through paths, operations, and parameters to discover relevant API
+    endpoints.
 - name: execute-request
   category: api-execution
   description: Executes an API request with a given HAR request object.
 - name: search
   category: documentation
-  description: Searches through documentation with the given search query, returning a list of results with ID, title and URL.
+  description: Searches through documentation with the given search query, returning a list of results
+    with ID, title and URL.
 - name: fetch
   category: documentation
   description: Gets detailed content for documentation by ID returned from the search tool.
 tool_count: 6
 tools_file: mcp/wsc-sports-mcp-tools.json
 notes:
-- >-
-  This is a ReadMe-platform MCP server fronting the provider's own documentation and OpenAPI. The tools are
-  generic (introspect/execute/search) rather than one tool per business capability, so the agent-facing
-  capability surface is the seven Blaze Feed API operations reached through execute-request, not six
-  domain tools. The crosswalk in mcp/wsc-sports-tool-crosswalk.yml records that distinction.
-- >-
-  execute-request can call the live Blaze Feed API but the API itself requires a Feed API key issued by an
-  account manager, so an agent still needs a provisioned credential to retrieve content.
+- This is a ReadMe-platform MCP server fronting the provider's own documentation and OpenAPI. The tools
+  are generic (introspect/execute/search) rather than one tool per business capability, so the agent-facing
+  capability surface is the seven Blaze Feed API operations reached through execute-request, not six domain
+  tools. The crosswalk in mcp/wsc-sports-tool-crosswalk.yml records that distinction.
+- execute-request can call the live Blaze Feed API but the API itself requires a Feed API key issued by
+  an account manager, so an agent still needs a provisioned credential to retrieve content.
