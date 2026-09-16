@@ -27,30 +27,16 @@ tags:
 - Highlights
 - Personalization
 apis:
-- aid: wsc-sports:wsc-sports-blaze-feed-api
-  name: WSC Sports Blaze Feed API
-  description: Server-side pull API for the WSC Sports Experiences content catalog. Seven read-only GET
-    operations return Stories, Moments and Videos metadata — filtered by title, labels, status, geo, live
-    state, create/update time and sport entities (game, team, player, round, season) — or fetched directly
-    by content ID, plus a trending-recommendations endpoint ranked by WSC Sports. Authenticated with a
-    Feed API key passed as the ApiKey query parameter, which is distinct from the Experiences app API
-    key.
-  image: https://wsc-sports.com/wp-content/uploads/2024/05/Sharing-Image-1-1.png
+- aid: wsc-sports:wsc-sports-feed-api
+  name: WSC Sports Feed API
+  description: The Feed API from WSC Sports — 7 operation(s) for feed.
   humanURL: https://dev.wsc-sports.com/docs/blazefeed-api-v1
   baseURL: https://blazefeed.clipro.tv
   tags:
   - Feed
-  - Content
-  - Sports
-  - Video
-  - Recommendations
   properties:
   - type: OpenAPI
-    url: openapi/wsc-sports-blaze-feed-api.json
-  - type: OpenAPI
-    url: openapi/wsc-sports-blaze-feed-api-reference.json
-  - type: Overlay
-    url: overlays/wsc-sports-blaze-feed-api-overlay.yaml
+    url: openapi/wsc-sports-feed-api-openapi.yml
   - type: Documentation
     url: https://dev.wsc-sports.com/docs/blazefeed-api-v1
   - type: APIReference
