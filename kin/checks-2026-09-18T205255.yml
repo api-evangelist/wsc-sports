@@ -2,14 +2,15 @@
 kin_checks:
   slug: wsc-sports
   schema_version: 0.22.0
-  scored_at: '2026-09-15'
-  run_ts: 2026-09-15T230249
-  note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.22.0.yml; counts below let you verify that.
+  scored_at: '2026-09-18'
+  run_ts: 2026-09-18T205255
+  note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
+    apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
+    below let you verify that.
   counts:
     total: 136
-    earned: 40
-    partial: 14
+    earned: 41
+    partial: 13
     missed: 54
     na: 28
   checks:
@@ -28,16 +29,16 @@ kin_checks:
   - id: info_complete
     status: missed
     detail: 0 of 1 openapi documents pass
-  - id: operations_summary_coverage
-    status: missed
-    detail: 0 of 1 openapi documents pass
   - id: operations_description_coverage
     status: missed
     detail: 0 of 1 openapi documents pass
-  - id: operations_operation_ids
+  - id: error_responses_documented
     status: missed
     detail: 0 of 1 openapi documents pass
-  - id: error_responses_documented
+  - id: security_schemes_defined
+    status: missed
+    detail: 0 of 1 openapi documents pass
+  - id: security_applied
     status: missed
     detail: 0 of 1 openapi documents pass
   - id: webhooks_or_callbacks
@@ -129,9 +130,6 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
-  - id: servers_resolvable
-    status: partial
-    earned: 2.5
   - id: examples_present
     status: partial
     earned: 1.0
@@ -171,8 +169,8 @@ kin_checks:
     detail: 'grade: documented'
   - id: openapi_examples
     status: partial
-    earned: 1.75
-    detail: 'grade: documented'
+    earned: 3.5
+    detail: 'grade: partial'
   - id: rate_limit_signal
     status: partial
     earned: 3.5
@@ -181,3 +179,32 @@ kin_checks:
     status: partial
     earned: 1.25
     detail: 'authorship: derived'
+  na:
+  - asyncapi_3_x
+  - channels_defined
+  - contract_self_operated
+  - dry_run_mode
+  - fhir_capability_statement
+  - fhir_resource_coverage
+  - graphql_descriptions
+  - graphql_sdl_present
+  - graphql_type_depth
+  - idempotency
+  - messages_with_schema
+  - os_code_of_conduct
+  - os_contribution_guide
+  - os_releases
+  - os_security_policy
+  - reg_camara_conformance
+  - reg_certification_signal
+  - reg_consent_model
+  - reg_entitlement_terms
+  - reg_fapi_profile
+  - reg_mandate_verified
+  - reg_named_standard_conformance
+  - reg_pci_sca
+  - reg_smart_configuration
+  - reg_write_surface
+  - reversibility_documented
+  - security_schemes
+  - server_bindings
