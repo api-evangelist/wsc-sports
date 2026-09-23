@@ -1,0 +1,25 @@
+# Front Door AI Index — wsc-sports — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: wsc-sports
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: wsc-sports.com
+  final_host: wsc-sports.com
+  ownership: own
+  owner: wsc-sports
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 5
+  host_score: 5
+  density: 17.73
+  words: 282
+  tiers:
+    agentic: 0
+    core: 5
+    model: 0
+  ambiguous: 0
+  top_terms:
+    AI: 5

@@ -1,0 +1,23 @@
+{
+  "provider": "wsc-sports",
+  "sources": [
+    "_original/wsc-sports-blaze-feed-api-reference.json"
+  ],
+  "outputs": [
+    "wsc-sports-feed-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "wsc-sports-blaze-feed-api-reference.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "wsc-sports-blaze-feed-api-reference.json: declared missing tag: Feed",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/wsc-sports-blaze-feed-api.json: archived document superseded by a larger archived document",
+    "wsc-sports-feed-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
