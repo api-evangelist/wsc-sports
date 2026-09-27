@@ -620,6 +620,12 @@ components:
         season:
           $ref: '#/components/schemas/MetadataEntityIds'
       additionalProperties: false
+    ContentType:
+      enum:
+      - Story
+      - Moment
+      - Video
+      type: string
     RecommendationsResponseDTO:
       type: object
       properties:
@@ -637,40 +643,105 @@ components:
             $ref: '#/components/schemas/StoryDTO'
           description: The trending content, matching the requested content type. Up to 100 items. For Moment requests each item is a Moment object.
       additionalProperties: false
-    CreationSettings:
-      type:
-      - object
-      - 'null'
+    LabelDTO:
+      type: object
       properties:
-        creationTimePeriod:
+        title:
           type:
           - string
           - 'null'
-        ruleName:
-          type:
-          - string
-          - 'null'
-        storyType:
+        identifier:
           type:
           - string
           - 'null'
       additionalProperties: false
-    TranslatedStrings:
-      type:
-      - object
-      - 'null'
-      additionalProperties:
-        type: string
-      description: Translations keyed by language code, for example en, es, ar.
-    ThumbnailDTO:
+    StoryDTO:
       type: object
       properties:
-        url:
+        id:
           type:
           - string
           - 'null'
-        aspectRatio:
-          $ref: '#/components/schemas/AssetVideoAspectRatio'
+        type:
+          $ref: '#/components/schemas/ContentType'
+        title:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        version:
+          type: integer
+          format: int64
+        aspectRatios:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetVideoAspectRatio'
+        status:
+          $ref: '#/components/schemas/ContentStatus'
+        isLive:
+          type: boolean
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+        thumbnails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ThumbnailDTO'
+        geoTargeting:
+          $ref: '#/components/schemas/GeoTargeting'
+        metadata:
+          $ref: '#/components/schemas/ContentMetadata'
+        executionTimeType:
+          $ref: '#/components/schemas/ExecutionTimeType'
+        htmlUrl:
+          type:
+          - string
+          - 'null'
+        pages:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PageDTO'
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LabelDTO'
+        extraInfo:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    MetadataEntityIds:
+      type: object
+      properties:
+        provider:
+          type:
+          - string
+          - 'null'
+        providerId:
+          type:
+          - string
+          - 'null'
+        wscId:
+          type: integer
+          format: int32
       additionalProperties: false
     AssetVideoAspectRatio:
       enum:
@@ -693,157 +764,34 @@ components:
       - ThreeToEight
       - FiveToOne
       type: string
-    ContentType:
+    GeoTargeting:
+      type: object
+      properties:
+        includedGeos:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        excludedGeos:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    ContentStatus:
       enum:
-      - Story
-      - Moment
-      - Video
+      - Draft
+      - Active
       type: string
-    VideoDTOPaginationSearchResponse:
-      type: object
-      properties:
-        totalItems:
-          type: integer
-          format: int32
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/VideoDTO'
-      additionalProperties: false
-    VideoDTO:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ContentType'
-        id:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        subtitle:
-          type:
-          - string
-          - 'null'
-        version:
-          type: integer
-          format: int64
-        aspectRatios:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssetVideoAspectRatio'
-        status:
-          $ref: '#/components/schemas/ContentStatus'
-        duration:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Length in seconds.
-        createTime:
-          type: string
-          format: date-time
-        updateTime:
-          type: string
-          format: date-time
-        thumbnails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ThumbnailDTO'
-        geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
-        metadata:
-          $ref: '#/components/schemas/ContentMetadata'
-        executionTimeType:
-          $ref: '#/components/schemas/ExecutionTimeType'
-        labels:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LabelDTO'
-        extraInfo:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        defaultLanguage:
-          type:
-          - string
-          - 'null'
-          description: Language code of the original title, for example en.
-        translatedTitles:
-          $ref: '#/components/schemas/TranslatedStrings'
-        translatedDescriptions:
-          $ref: '#/components/schemas/TranslatedStrings'
-        translatedSubtitles:
-          $ref: '#/components/schemas/TranslatedStrings'
-        competitionId:
-          type:
-          - string
-          - 'null'
-        publishMethod:
-          type:
-          - string
-          - 'null'
-        creationSettings:
-          $ref: '#/components/schemas/CreationSettings'
-        game:
-          type:
-          - object
-          - 'null'
-          description: Game information, when available.
-        rating:
-          type:
-          - integer
-          - 'null'
-          format: int32
-      additionalProperties: false
-    EntityIdType:
+    ExecutionTimeType:
       enum:
-      - WscId
-      - ServiceProviderId
+      - None
+      - PreGame
+      - InGame
+      - PostGame
       type: string
-    MomentDTOPaginationSearchResponse:
-      type: object
-      properties:
-        totalItems:
-          type: integer
-          format: int32
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MomentDTO'
-      additionalProperties: false
-    LabelDTO:
-      type: object
-      properties:
-        title:
-          type:
-          - string
-          - 'null'
-        identifier:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     MomentDTO:
       type: object
       properties:
@@ -950,53 +898,24 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    MetadataEntityIds:
+    VideoDTO:
       type: object
       properties:
-        provider:
-          type:
-          - string
-          - 'null'
-        providerId:
-          type:
-          - string
-          - 'null'
-        wscId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ContentStatus:
-      enum:
-      - Draft
-      - Active
-      type: string
-    StoryDTOPaginationSearchResponse:
-      type: object
-      properties:
-        totalItems:
-          type: integer
-          format: int32
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/StoryDTO'
-      additionalProperties: false
-    StoryDTO:
-      type: object
-      properties:
+        type:
+          $ref: '#/components/schemas/ContentType'
         id:
           type:
           - string
           - 'null'
-        type:
-          $ref: '#/components/schemas/ContentType'
         title:
           type:
           - string
           - 'null'
         description:
+          type:
+          - string
+          - 'null'
+        subtitle:
           type:
           - string
           - 'null'
@@ -1011,8 +930,12 @@ components:
             $ref: '#/components/schemas/AssetVideoAspectRatio'
         status:
           $ref: '#/components/schemas/ContentStatus'
-        isLive:
-          type: boolean
+        duration:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Length in seconds.
         createTime:
           type: string
           format: date-time
@@ -1031,16 +954,6 @@ components:
           $ref: '#/components/schemas/ContentMetadata'
         executionTimeType:
           $ref: '#/components/schemas/ExecutionTimeType'
-        htmlUrl:
-          type:
-          - string
-          - 'null'
-        pages:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PageDTO'
         labels:
           type:
           - array
@@ -1055,14 +968,86 @@ components:
             type:
             - string
             - 'null'
+        defaultLanguage:
+          type:
+          - string
+          - 'null'
+          description: Language code of the original title, for example en.
+        translatedTitles:
+          $ref: '#/components/schemas/TranslatedStrings'
+        translatedDescriptions:
+          $ref: '#/components/schemas/TranslatedStrings'
+        translatedSubtitles:
+          $ref: '#/components/schemas/TranslatedStrings'
+        competitionId:
+          type:
+          - string
+          - 'null'
+        publishMethod:
+          type:
+          - string
+          - 'null'
+        creationSettings:
+          $ref: '#/components/schemas/CreationSettings'
+        game:
+          type:
+          - object
+          - 'null'
+          description: Game information, when available.
+        rating:
+          type:
+          - integer
+          - 'null'
+          format: int32
       additionalProperties: false
-    ExecutionTimeType:
-      enum:
-      - None
-      - PreGame
-      - InGame
-      - PostGame
-      type: string
+    TranslatedStrings:
+      type:
+      - object
+      - 'null'
+      additionalProperties:
+        type: string
+      description: Translations keyed by language code, for example en, es, ar.
+    CreationSettings:
+      type:
+      - object
+      - 'null'
+      properties:
+        creationTimePeriod:
+          type:
+          - string
+          - 'null'
+        ruleName:
+          type:
+          - string
+          - 'null'
+        storyType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    StoryDTOPaginationSearchResponse:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          format: int32
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StoryDTO'
+      additionalProperties: false
+    ThumbnailDTO:
+      type: object
+      properties:
+        url:
+          type:
+          - string
+          - 'null'
+        aspectRatio:
+          $ref: '#/components/schemas/AssetVideoAspectRatio'
+      additionalProperties: false
     PageDTO:
       type: object
       properties:
@@ -1102,21 +1087,36 @@ components:
             - string
             - 'null'
       additionalProperties: false
-    GeoTargeting:
+    VideoDTOPaginationSearchResponse:
       type: object
       properties:
-        includedGeos:
+        totalItems:
+          type: integer
+          format: int32
+        result:
           type:
           - array
           - 'null'
           items:
-            type: string
-        excludedGeos:
+            $ref: '#/components/schemas/VideoDTO'
+      additionalProperties: false
+    EntityIdType:
+      enum:
+      - WscId
+      - ServiceProviderId
+      type: string
+    MomentDTOPaginationSearchResponse:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          format: int32
+        result:
           type:
           - array
           - 'null'
           items:
-            type: string
+            $ref: '#/components/schemas/MomentDTO'
       additionalProperties: false
   parameters:
     ApiKeyQuery:
