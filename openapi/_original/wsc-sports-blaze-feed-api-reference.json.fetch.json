@@ -1,0 +1,12 @@
+{
+ "url": "https://blazefeed.clipro.tv/swagger/v1/swagger.json",
+ "requested_url": "https://blazefeed.clipro.tv/swagger/v1/swagger.json",
+ "status": 200,
+ "content_type": "application/json;charset=utf-8",
+ "bytes": 123248,
+ "sha256": "874bc99313ad5aee6b2fb05417f95e67dec7d82faac32c6b8d96582ae8c2c930",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
