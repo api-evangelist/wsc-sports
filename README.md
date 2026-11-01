@@ -64,5 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-WSC Sports is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/wsc-sports-stock
+WSC Sports Technologies is an Israeli sports-technology company whose AI platform automatically watches live sports broadcasts, identifies the moments that matter, and generates personalized short-form video — highlights, Stories and Moments — for leagues, broadcasters and rights holders. The developer surface is the Experiences product: a mobile-first embeddable SDK for iOS, Android, Web, React Native and Flutter that renders Stories, Moments and Videos inside a customer app, backed by the Arena CMS and the server-side Blaze Feed API, a read-only REST content-catalog and trending-recommendations API published as OpenAPI 3.0.1 at blazefeed.clipro.tv, complemented by outbound content-change webhooks and a public remote MCP server for AI coding assistants.
+
+**Areas:** Company · Sports · Video · Media · Artificial Intelligence · Content · Streaming · SDK · Highlights · Personalization
+
+## WSC Sports on APIs.io
+
+Everything profiled for WSC Sports is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/wsc-sports/](https://apis.io/providers/wsc-sports/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [WSC Sports Feed API](https://apis.io/apis/wsc-sports/wsc-sports-feed-api/) — The Feed API from WSC Sports — 7 operation(s) for feed.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Wsc Sports Content Webhooks](https://apis.io/asyncapis/wsc-sports/wsc-sports-content-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [WSC Sports Experiences](https://apis.io/servers/wsc-sports/wsc-sports-experiences/)
+
+#### Examples (1)
+
+Example requests and responses.
+
+- [Wsc Sports Trending Recommendations](https://apis.io/examples/wsc-sports/wsc-sports-trending-recommendations/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Wsc Sports Blaze Feed Api Overlay](https://apis.io/overlays/wsc-sports/wsc-sports-blaze-feed-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Wsc Sports Authentication](https://apis.io/security/wsc-sports/wsc-sports-authentication/)
+- [Wsc Sports Domain Security](https://apis.io/security/wsc-sports/wsc-sports-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Wsc Sports Plans Pricing](https://apis.io/plans/wsc-sports/wsc-sports-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Wsc Sports Rate Limits](https://apis.io/rate-limits/wsc-sports/wsc-sports-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://wsc-sports.com/)
+- [Documentation](https://dev.wsc-sports.com/docs/getting-started)
+- [Getting started](https://dev.wsc-sports.com/docs/getting-started)
+- [API reference](https://dev.wsc-sports.com/reference/getstories)
+- [Sign up](https://wsc-sports.com/request-a-demo/)
+- [Support](https://wsc-sports.com/contact-us/)
+- [Blog](https://wsc-sports.com/blog/)
+- [Terms of service](https://wsc-sports.com/terms-of-use/)
+- [Privacy policy](https://wsc-sports.com/privacy-policy/)
+- [GitHub](https://github.com/WSCSports)
+
+## API Evangelist rating
+
+**Kin Score 42.4** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 50.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 34.2 |
+
+**Agent readiness 44.5** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/wsc-sports/](https://apis.io/providers/wsc-sports/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for WSC Sports: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/wsc-sports/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
